@@ -1,0 +1,636 @@
+FINAL VERSION 1 LAUNCH POLISH — SINA COMMERCIAL WEBSITE
+
+Goal:
+Prepare this website as a professional Version 1 public launch for sinacommercial.ca. Do not redesign the website from scratch. Keep the current premium navy/gold/red commercial real estate look, current page structure, and existing content direction. Make only professional launch-level improvements, bug fixes, spacing fixes, form-flow improvements, and visual polish.
+
+Website pages to polish:
+- Home / Main page
+- Opportunities
+- Search Properties
+- Market Intelligence
+- Services
+- Contact / Request Confidential Opportunities
+- Footer and shared navigation across all pages
+
+IMPORTANT:
+Do not remove the current premium design direction.
+Do not simplify the site too much.
+Do not rebuild from zero.
+Polish the existing website into a clean, professional, public-ready Version 1.
+
+1. HEADER / NAVIGATION
+
+Fix the header across all pages.
+
+- Make the Sina Commercial logo slightly larger and more visible in the header.
+- Keep it professional and balanced; do not make it oversized.
+- Recommended desktop logo height: approximately 56–70px.
+- Recommended mobile logo height: approximately 44–52px.
+- Make sure the logo is not cut off.
+- Keep nav items aligned vertically.
+- Ensure nav spacing works on desktop, tablet, and mobile.
+- Current nav items should remain:
+  - Opportunities
+  - Search Properties
+  - Market Intelligence
+  - Services
+  - Contact
+  - Request Confidential Opportunities
+
+Active page state:
+- Highlight the active nav item with gold text and/or gold underline.
+- Do not allow the nav to overlap or wrap awkwardly.
+
+Mobile:
+- If the nav becomes too crowded, use a clean mobile menu/hamburger.
+- CTA button should still be accessible on mobile.
+
+2. HERO SECTION
+
+Keep the current hero design, but ensure it is balanced and polished.
+
+Hero headline:
+COMMERCIAL REAL ESTATE INTELLIGENCE FOR INVESTORS, OWNER-USERS & BUSINESS OWNERS
+
+Hero subheadline:
+Off-market opportunities, acquisition advisory, tenant representation and strategic commercial real estate guidance across the Greater Toronto Area.
+
+CTA buttons:
+- Request Confidential Opportunities
+- Book Consultation
+
+Make sure:
+- Hero text is readable.
+- Background image is commercial real estate related only.
+- No lifestyle, passport, travel, unrelated business, or random stock imagery.
+- Hero spacing is not too tall on desktop or mobile.
+- CTA buttons are aligned and consistent.
+
+3. SINA PROFILE / HEADSHOT SECTION
+
+There is currently one section where Sina’s headshot appears too large.
+
+Fix this:
+- Reduce the large headshot to a professional profile-card size.
+- Use a clean circular or rounded professional portrait style.
+- Recommended desktop size: 140–180px wide maximum.
+- Recommended mobile size: 110–140px.
+- Do not stretch or crop awkwardly.
+- Keep the face centered.
+- Avoid huge portrait image blocks.
+
+Add or keep credibility highlights near Sina’s profile:
+- Licensed Since 2009
+- GTA Commercial Specialist
+- Industrial | Retail | Investment
+- Investor & Owner-User Advisory
+
+The profile section should feel like a premium advisor bio, not a personal photo section.
+
+4. LOGO USAGE
+
+Improve logo visibility in:
+- Header
+- Footer
+- Profile/contact sections where appropriate
+
+Do not place the logo too many times.
+Do not let the logo appear tiny or blurry.
+Use consistent sizing.
+
+Footer logo:
+- Make it larger than currently if it feels too small.
+- Recommended footer logo height: 70–90px on desktop.
+- Mobile: 55–70px.
+
+5. SEARCH PROPERTIES PAGE — MOST IMPORTANT FIX
+
+The Search Properties page is very good, but the form behavior needs improvement.
+
+Current issue:
+When the user selects an option and clicks Next, the page jumps upward to Quick Commercial Search or the top area. This is not good.
+
+Fix the multi-step search form behavior:
+- When user clicks Next, scroll smoothly to the top of the current form card / next step, not to the top of the page.
+- The form should keep the user focused on the step they are filling.
+- The sticky header should not cover the step title.
+- Add proper scroll-margin-top or equivalent spacing so the step title is visible below the header.
+- Back and Next buttons should feel smooth.
+
+Multi-step form requirements:
+- Keep the Quick Commercial Search section at the top.
+- Keep the Advanced Property Search below.
+- Advanced search should be optional and user-friendly.
+- Users should be able to submit even if they skip many specific fields.
+- Required fields should be limited to:
+  - First Name
+  - Last Name
+  - Email or Phone
+  - Search Purpose / Broad Objective
+- Everything else should be optional.
+
+Important:
+Do not force users to answer every detailed question.
+The form should encourage detailed criteria but not block submission.
+
+Add helper text near the Advanced Search:
+“Complete as much as you can. You may leave sections blank if they do not apply.”
+
+For each step:
+- Allow user to click Next even if no option is selected, except the required basic sections.
+- If required fields are missing at final submission, show a professional inline message.
+- Do not use browser alert popups.
+- Use clean inline validation.
+
+6. SEARCH FORM STRUCTURE
+
+Keep the detailed criteria, but make it easier to use.
+
+Recommended structure:
+
+Step 1: Search Purpose
+Options:
+- Lease a commercial property
+- Buy a commercial property
+- Invest in income-producing property
+- Buy a business with property
+- Sell a commercial property
+- Lease out my property
+- Explore off-market opportunities
+- Not sure yet — need advisory
+
+Step 2: Property Type
+Keep detailed options:
+Industrial:
+- Industrial warehouse
+- Small-bay industrial
+- Flex industrial
+- Manufacturing facility
+- Logistics / distribution
+- Truck terminal
+- Contractor yard
+- Outside storage
+- Cold storage / freezer / cooler
+- Crane building
+- Heavy power facility
+- Automotive building
+- Body shop
+- Mechanic shop
+- Tire shop
+- Car dealership property
+- Car wash
+- Self-storage
+- Industrial condo
+- Industrial land
+
+Retail / Commercial:
+- Restaurant / takeout
+- QSR / franchise location
+- Medical / dental
+- Pharmacy
+- Convenience store
+- Grocery / supermarket
+- Fitness / gym
+- Daycare
+- Banquet hall / event venue
+- Showroom
+- Service commercial
+- Automotive retail
+- Gas station
+- Mixed-use commercial
+
+Office:
+- Professional office
+- Medical office
+- Small office condo
+- Office building
+- Creative office
+- Flex office / showroom
+
+Investment:
+- Multi-tenant industrial
+- Multi-tenant retail plaza
+- Mixed-use investment property
+- Office investment property
+- Development land
+- Redevelopment site
+- User-investor property
+- Sale-leaseback opportunity
+- Value-add property
+- Stabilized income property
+- Distressed / underperforming asset
+
+Business with Property:
+- Restaurant with property
+- Gas station with property
+- Car wash with property
+- Auto business with property
+- Retail business with property
+- Industrial business with property
+- Plaza business opportunity
+- Other business with real estate
+
+Step 3: Intended Use
+Keep detailed use options, but optional.
+
+Step 4: Location
+Keep GTA area options:
+Toronto, North York, Scarborough, Etobicoke, Downtown Toronto, East York, York
+Vaughan, Richmond Hill, Markham, Newmarket, Aurora, Stouffville, King, Georgina
+Mississauga, Brampton, Caledon
+Pickering, Ajax, Whitby, Oshawa, Clarington, Uxbridge
+Oakville, Burlington, Milton, Halton Hills
+Hamilton, Guelph, Kitchener-Waterloo, Cambridge, Barrie, Other Ontario market
+
+Include:
+- Preferred intersection / corridor
+- Maximum travel distance
+
+Step 5: Size Requirements
+- Minimum size
+- Maximum size
+- Office component %
+
+Step 6: Budget / Price Range
+For leasing:
+- Monthly gross budget
+- Lease rate comfort
+
+For buying:
+- Purchase budget
+- Down payment / equity available
+
+For investors:
+- Target return / cap rate
+
+Step 7: Industrial Requirements
+Optional only:
+- Clear height
+- Power requirement
+- Drive-in door required
+- Truck-level door required
+- Multiple truck-level doors
+- 53’ trailer access required
+- Shipping court required
+- No shipping requirement
+- Crane
+- Spray booth
+- Floor drains
+- Outside storage
+- Fenced yard
+- Trailer parking
+- Overnight parking
+- Truck repair permitted
+- Automotive use permitted
+- Food production permitted
+- Cooler/freezer
+- Venting
+- Gas service
+- High ceiling
+- Heavy floor load
+- Multiple units side by side
+
+Step 8: Retail & Business Requirements
+Optional only:
+- Street exposure
+- Corner unit
+- High traffic location
+- Patio potential
+- Liquor license potential
+- Franchise approved site
+- Daycare permitted
+- Separate entrance
+- Public transit nearby
+- Close to highway
+- Close to employment area
+- Plaza location
+- Pylon signage
+- Parking required
+- Restaurant venting
+- Drive-thru potential
+- Medical use permitted
+- Automotive retail permitted
+- Loading access
+- Close to residential density
+- Close to schools
+
+Step 9: Investment Profile
+Optional only:
+Investment strategy:
+- Stable income
+- Value-add
+- Owner-user with investment upside
+- Redevelopment
+- Land assembly
+- Long-term hold
+- Short-term repositioning
+- Sale-leaseback
+- Distressed asset
+- Off-market only
+
+Tenant profile:
+- Single tenant
+- Multi-tenant
+- National tenant
+- Local tenants
+- Vacant possession
+- Existing income
+- Lease rollover opportunity
+- Flexible
+
+Risk profile:
+- Conservative
+- Balanced
+- Value-add
+- Opportunistic
+- Not sure
+
+Financing:
+- Cash buyer
+- Financing required
+- Pre-approved
+- Need financing guidance
+- Seller financing interest
+- Private capital / JV interest
+
+Step 10: Timeline
+- Immediately
+- Within 30 days
+- 1–3 months
+- 3–6 months
+- 6–12 months
+- 12+ months
+- Just researching
+
+Urgency:
+- Very urgent
+- Active search
+- Exploring options
+- Long-term planning
+
+Step 11: Contact Information
+Required:
+- First name
+- Last name
+- Email OR phone
+
+Optional:
+- Company name
+- WhatsApp number
+- Preferred contact method
+- Best time to contact
+- Additional notes
+
+Final submit button:
+SEARCH MATCHING COMMERCIAL OPPORTUNITIES
+
+After submission:
+Show professional success message:
+“Thank you. Your criteria have been received. Sina Commercial will review your requirements and follow up with suitable opportunities.”
+
+7. FORM DATA CAPTURE
+
+Make sure both Quick Commercial Search and Advanced Property Search collect and organize data properly.
+
+For now, if no backend is connected:
+- Prepare the form structure so it can later connect to:
+  - Email notification
+  - Google Sheets
+  - Pipedrive
+  - Webhook
+  - OpenClaw / Kevin lead intake
+
+In code, keep form field names clean and organized so future development is easy.
+
+Use a structured object like:
+leadType
+searchPurpose
+propertyTypes
+intendedUse
+locations
+sizeRequirements
+budget
+industrialRequirements
+retailRequirements
+investmentProfile
+timeline
+contactInfo
+notes
+
+Do not hard-code placeholder submitted values.
+All fields should be empty by default.
+
+8. QUICK COMMERCIAL SEARCH
+
+Keep Quick Commercial Search simple and useful.
+
+Fields:
+- Name
+- Phone
+- Email
+- Lease / Buy / Invest
+- Property Type
+- Preferred Area
+- Size Range
+
+Button:
+GET MATCHING OPPORTUNITIES
+
+Make sure placeholders are not fake pre-filled values.
+Use placeholders only, not actual values.
+
+9. OPPORTUNITIES PAGE
+
+Keep the current Featured Commercial Opportunities layout.
+
+Fix:
+- All images must be commercial real estate related.
+- No unrelated people, passport, lifestyle, travel, or generic business images.
+- Use premium images:
+  - Industrial warehouse
+  - Logistics/distribution facility
+  - Retail plaza
+  - Office/commercial building
+  - Auto-related facility
+  - Small-bay industrial condo
+
+Make cards consistent:
+- Same height where possible
+- Clean image crop
+- Clear title
+- Location
+- Size
+- CTA button: Request Info
+
+Make sure no broken images show alt text.
+
+10. RECENT TRANSACTIONS
+
+Remove horizontal scrolling completely.
+
+Display Recent Transactions in a responsive grid:
+- Desktop: 3 columns × 2 rows
+- Tablet: 2 columns
+- Mobile: 1 column
+
+Cards:
+- Industrial Lease — North York — 7,700 SF
+- Industrial Acquisition — Vaughan — 38,500 SF
+- Retail Plaza Acquisition — Scarborough — 22,000 SF
+- Auto-Related Commercial Lease — Toronto — 3,000 SF
+- Industrial Sale — Mississauga — 18,000 SF
+- Investment Property Advisory — Richmond Hill — $9.2M
+
+Include small disclaimer:
+“Representative examples. Past performance does not guarantee future results.”
+
+11. MARKET INTELLIGENCE PAGE
+
+Keep it professional and investor-focused.
+
+Make sure Market Intelligence page has:
+- GTA Commercial Market Intelligence heading
+- Three intelligence cards:
+  - Industrial Market Trends
+  - Emerging Investment Corridors
+  - Off-Market Opportunity Brief
+- Request Latest Market Report CTA
+
+Check spacing:
+- Remove oversized empty gaps.
+- Ensure sections flow naturally.
+- Make Read Brief links consistent.
+
+12. SERVICES PAGE
+
+Keep current services but polish spacing.
+
+Services should include:
+- Tenant Representation
+- Buyer Representation
+- Investment Advisory
+- Landlord / Seller Advisory
+- Off-Market Acquisition Strategy
+- Business With Property Advisory
+- Automotive & Specialized Commercial
+- Market Intelligence & Site Selection
+
+Make services readable, aligned, and responsive.
+
+13. CONTACT / REQUEST CONFIDENTIAL OPPORTUNITIES PAGE
+
+Make sure all forms are empty by default.
+No sample values like John, Doe, 416-555, etc.
+
+Required:
+- First Name
+- Last Name
+- Email or Phone
+
+Optional:
+- Company
+- Investor / Owner-user / Business owner / Landlord / Broker / Other
+- Looking for
+- Investment range
+- Target area
+- Timeline
+- Notes
+
+CTA:
+REQUEST CONFIDENTIAL OPPORTUNITIES
+
+14. FOOTER
+
+Polish footer across all pages.
+
+Footer should include:
+- Larger Sina Commercial logo
+- Sina Shahravan
+- Vice President, Sales Associate
+- Nave Real Estate Brokerage Inc.
+- M: 416-710-1109
+- O: 905-556-3232
+- E: sina@sinacommercial.ca
+- Greater Toronto Area, Ontario
+
+Quick links:
+- Opportunities
+- Search Commercial Properties
+- Market Intelligence
+- Services
+- Contact
+- Request Confidential Opportunities
+
+Legal disclaimer:
+“Not intended to solicit buyers or sellers currently under contract.”
+
+Copyright:
+© 2026 Sina Commercial. All rights reserved. Brokerage: Nave Real Estate Brokerage Inc.
+
+15. IMAGE QUALITY
+
+Replace all placeholder, broken, unrelated, or low-quality images.
+
+Use only:
+- Industrial warehouses
+- Logistics facilities
+- Commercial plazas
+- Retail properties
+- Office/commercial investment assets
+- Auto-related commercial facilities
+
+Remove:
+- Passport/travel photos
+- Lifestyle photos
+- Random people photos
+- Unrelated business meeting photos
+- Broken image placeholders
+
+16. DEVELOPMENT BRANDING
+
+Before publication, remove or hide:
+- “Made with Replit”
+- “Build yours free”
+- Any temporary development branding
+- Any test badges
+- Any placeholder test text
+
+The Replit preview banner may still show inside Replit preview, but make sure the actual published site does not include custom development branding in the app itself.
+
+17. RESPONSIVENESS
+
+Check all pages on:
+- Desktop
+- Tablet
+- Mobile
+
+Fix:
+- Header overlap
+- CTA wrapping
+- Large empty gaps
+- Cropped images
+- Form fields too narrow
+- Buttons too wide
+- Footer stacking
+- Search form step scrolling
+
+18. FINAL QUALITY CHECK
+
+Before finishing, verify:
+
+- No broken images.
+- No unrelated images.
+- No horizontal scrolling.
+- No placeholder form values.
+- Forms are usable.
+- Advanced search can be submitted without every detailed field completed.
+- Search step Next button scrolls to the correct next form step.
+- Header is clean.
+- Logo is visible.
+- Mobile works.
+- CTA buttons are consistent.
+- Footer is professional.
+- Website feels ready for public launch on sinacommercial.ca.
+
+Final output:
+Make the website public-launch ready as Version 1 of Sina Commercial, suitable for future GitHub handoff and Ari development.

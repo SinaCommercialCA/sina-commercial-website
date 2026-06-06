@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "DsaMhiSXIis0o2hDaSkIn"
+uri = "file://artifacts/sina-commercial/src/assets/hero-bg.png"
+type = "image"
+title = "GTA commercial industrial aerial"
+
+[[generated]]
+id = "WkdidJpUvSJmXsDH2X1hQ"
+uri = "file://artifacts/sina-commercial/src/assets/property-industrial-1.png"
+type = "image"
+title = "Industrial warehouse facility"
+
+[[generated]]
+id = "35LdmWX1_I44YW86IQrIw"
+uri = "file://artifacts/sina-commercial/src/assets/property-retail-1.png"
+type = "image"
+title = "Retail plaza building"
+
+[[generated]]
+id = "_j5yI8ZUapdmvi3ke7loh"
+uri = "file://artifacts/sina-commercial/src/assets/property-industrial-2.png"
+type = "image"
+title = "Small bay industrial"
+
+[[generated]]
+id = "oBfU-8paHSWcJnhio6gou"
+uri = "file://artifacts/sina-commercial/src/assets/property-auto.png"
+type = "image"
+title = "Auto facility building"
+
+[[generated]]
+id = "gEwwrCphH-kGHdmNo71w5"
+uri = "file://artifacts/sina-commercial/src/assets/property-logistics.png"
+type = "image"
+title = "Logistics distribution center"
+
+[[generated]]
+id = "UF5g3W8_4tJpWm-U95oAR"
+uri = "file://artifacts/sina-commercial/src/assets/property-investment.png"
+type = "image"
+title = "Commercial investment property"
+
+[[generated]]
+id = "zz_-7Eq39GnLBEt_xiLd7"
+uri = "file://artifacts/sina-commercial/src/assets/market-intel.png"
+type = "image"
+title = "GTA Skyline business"
+
+[[generated]]
+id = "SlXR6jCX0vy0OHk13Pe-6"
+uri = "file://artifacts/sina-commercial/src/assets/off-market.png"
+type = "image"
+title = "Off market property"
+
+[[generated]]
+id = "SpjtLOR2nu8MzixT-LPi9"
+uri = "file://artifacts/sina-commercial/src/assets/business-property.png"
+type = "image"
+title = "Business with property"

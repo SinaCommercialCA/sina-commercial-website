@@ -1,0 +1,1435 @@
+Build a premium commercial real estate website from scratch for Sina Commercial.
+
+Website name:
+
+Sina Commercial
+
+Domain target:
+
+sinacommercial.ca
+
+Owner/advisor:
+
+Sina Shahravan
+Vice President, Sales Associate
+Nave Real Estate Brokerage Inc.
+M: 416-710-1109
+O: 905-556-3232
+E: [sina@sinacommercial.ca](mailto:sina@sinacommercial.ca)
+Greater Toronto Area, Ontario
+
+Main objective:
+
+Create a premium GTA commercial real estate intelligence and opportunity platform. This should not look like a generic realtor website. It should feel like a boutique commercial investment advisory platform for investors, owner-users, business owners, developers, franchise buyers, landlords, and tenants.
+
+Brand style:
+
+* Premium navy background: #0A1F44
+* Gold accent: #C9A227 or similar elegant gold
+* Red CTA accent: #C8102E
+* White typography
+* Elegant serif headings
+* Modern clean body font
+* Luxury commercial advisory feel
+* Institutional, professional, polished
+* No residential real estate look
+* No cheap template feel
+
+Build the website with these main pages/navigation:
+
+1. Main Page / Home
+2. Opportunities
+3. Search Properties
+4. Market Intelligence
+5. Services
+6. Contact
+
+Top navigation should show:
+
+Opportunities
+Search Properties
+Market Intelligence
+Services
+Contact
+Request Confidential Opportunities
+
+Use responsive design. It must work perfectly on desktop, tablet, and mobile.
+
+---
+
+## GLOBAL REQUIREMENTS
+
+Use only commercial real estate imagery:
+
+* Industrial warehouses
+* Logistics facilities
+* Distribution centres
+* Flex industrial buildings
+* Commercial plazas
+* Retail properties
+* Office/commercial investment assets
+* GTA skyline
+* Commercial investment properties
+* Industrial corridors
+* Modern warehouse interiors
+* Truck-level shipping / logistics photos
+
+Do not use:
+
+* Residential houses
+* Passport images
+* Travel images
+* Lifestyle stock photos
+* Random office meeting photos
+* Generic smiling business people
+* Broken image placeholders
+
+All forms should be empty by default. Do not prefill fields with John Doe or fake emails. Use placeholder text only.
+
+All CTA buttons should be consistent.
+
+Primary CTA:
+
+Request Confidential Opportunities
+
+Secondary CTA:
+
+Book Consultation
+
+Market report CTA:
+
+Request Latest Market Report
+
+Search page CTA:
+
+Search Matching Commercial Opportunities
+
+Footer should appear on all pages and include:
+
+Sina Shahravan
+Vice President, Sales Associate
+Nave Real Estate Brokerage Inc.
+M: 416-710-1109
+O: 905-556-3232
+E: [sina@sinacommercial.ca](mailto:sina@sinacommercial.ca)
+Greater Toronto Area, Ontario
+
+Footer quick links:
+
+Opportunities
+Search Commercial Properties
+Market Intelligence
+Services
+Request Confidential Opportunities
+Contact
+
+Compliance note:
+
+Not intended to solicit buyers or sellers currently under contract.
+
+Copyright:
+
+© 2026 Sina Commercial. All rights reserved. Brokerage: Nave Real Estate Brokerage Inc.
+
+---
+
+## HOME PAGE
+
+Hero headline:
+
+COMMERCIAL REAL ESTATE INTELLIGENCE FOR INVESTORS, OWNER-USERS & BUSINESS OWNERS
+
+Subheadline:
+
+Off-market opportunities, acquisition advisory, tenant representation and strategic commercial real estate guidance across the Greater Toronto Area.
+
+Hero CTAs:
+
+Request Confidential Opportunities
+Book Consultation
+
+Add small trust line:
+
+Industrial | Retail | Investment | Owner-User | Business With Property | GTA Commercial Advisory
+
+Add premium visual using commercial real estate imagery, preferably industrial/logistics/GTA skyline.
+
+---
+
+## HOME SECTION — ADVISOR PROFILE
+
+Create an executive profile section.
+
+Heading:
+
+Led by Sina Shahravan
+
+Content:
+
+Sina Shahravan is a GTA commercial real estate advisor focused on industrial, retail, investment, and off-market commercial opportunities. Since 2009, Sina has advised investors, business owners, landlords, tenants, and owner-users across the Greater Toronto Area with a practical, opportunity-driven approach.
+
+Profile details:
+
+Sina Shahravan
+Vice President, Sales Associate
+Nave Real Estate Brokerage Inc.
+
+Add space for professional headshot.
+
+Add credibility highlights:
+
+* Licensed Since 2009
+* GTA Commercial Specialist
+* Industrial | Retail | Investment
+* Investor & Owner-User Advisory
+
+---
+
+## HOME SECTION — LOOKING FOR A SPECIFIC COMMERCIAL PROPERTY?
+
+Heading:
+
+Looking for a Specific Commercial Property?
+
+Subheading:
+
+Submit your exact criteria and Sina Commercial will search public listings, off-market opportunities, broker-network properties, and private commercial opportunities across the GTA.
+
+Button:
+
+Search Commercial Properties
+
+Link to:
+
+/search-properties
+
+---
+
+## HOME SECTION — FEATURED OPPORTUNITIES
+
+Heading:
+
+Featured Commercial Opportunities
+
+Subheading:
+
+A curated view of commercial real estate opportunities across the Greater Toronto Area, including industrial, retail, investment and off-market property types.
+
+Create 6 premium opportunity cards.
+
+Use commercial property images only.
+
+Cards:
+
+1. Industrial Warehouse Opportunity
+   Location: North York
+   Type: Industrial Lease
+   Size: 7,700 SF
+   CTA: Request Info
+
+2. Retail Plaza Acquisition
+   Location: Scarborough
+   Type: Investment / Retail
+   Size: 22,000 SF
+   CTA: Request Info
+
+3. Small-Bay Industrial Condo
+   Location: Vaughan
+   Type: Industrial Sale
+   Size: 3,500 SF
+   CTA: Request Info
+
+4. Auto-Related Commercial Facility
+   Location: Toronto
+   Type: Automotive / Industrial
+   Size: 3,000 SF
+   CTA: Request Info
+
+5. Logistics / Distribution Facility
+   Location: Mississauga
+   Type: Industrial Lease
+   Size: 18,000 SF
+   CTA: Request Info
+
+6. Investment Property Advisory
+   Location: Richmond Hill
+   Type: Commercial Investment
+   Value: $9.2M
+   CTA: Request Info
+
+Add a note:
+
+Some opportunities may be confidential or off-market. Submit your criteria to receive suitable matches.
+
+---
+
+## HOME SECTION — RECENT TRANSACTIONS
+
+Heading:
+
+Recent Transactions & Advisory Experience
+
+Use a clean responsive grid:
+
+Desktop: 3 columns x 2 rows
+Tablet: 2 columns
+Mobile: 1 column
+
+Cards:
+
+* Industrial Lease | North York | 7,700 SF
+* Industrial Acquisition | Vaughan | 38,500 SF
+* Retail Plaza Acquisition | Scarborough | 22,000 SF
+* Auto-Related Commercial Lease | Toronto | 3,000 SF
+* Industrial Sale | Mississauga | 18,000 SF
+* Investment Property Advisory | Richmond Hill | $9.2M
+
+Add disclaimer:
+
+Representative examples. Past performance does not guarantee future results.
+
+---
+
+## HOME SECTION — MARKET INTELLIGENCE PREVIEW
+
+Heading:
+
+GTA Commercial Market Intelligence
+
+Create 3 insight cards:
+
+1. Industrial Market Trends
+   Vacancy, rental growth, logistics demand, and small-bay industrial activity.
+
+2. Emerging Investment Corridors
+   Infrastructure, zoning, redevelopment, and commercial growth patterns across the GTA.
+
+3. Off-Market Opportunity Brief
+   Confidential buyer demand, private seller activity, and strategic acquisition themes.
+
+CTA:
+
+Request Latest Market Report
+
+Link to:
+
+/market-intelligence
+
+---
+
+## HOME SECTION — SERVICES PREVIEW
+
+Heading:
+
+Commercial Advisory Services
+
+Cards:
+
+1. Tenant Representation
+   For businesses seeking industrial, retail, office, automotive, or service commercial space.
+
+2. Buyer Representation
+   For owner-users, investors, and business owners looking to acquire commercial property.
+
+3. Investment Advisory
+   For buyers, sellers, and private investors evaluating commercial real estate opportunities.
+
+4. Off-Market Acquisition Strategy
+   For serious buyers looking beyond public listings.
+
+5. Landlord & Seller Advisory
+   For owners considering leasing, selling, repositioning, or quietly testing market demand.
+
+6. Business With Property
+   For buyers seeking operating businesses with real estate attached.
+
+CTA:
+
+Explore Services
+
+Link to:
+
+/services
+
+---
+
+## HOME SECTION — TESTIMONIALS
+
+Heading:
+
+Client Perspectives
+
+Use professional sample testimonials:
+
+“Sina identified an opportunity that never reached the public market. His negotiation strategy helped us move with confidence.”
+
+Industrial Investor
+
+“Sina understood our operational requirements and sourced options that matched our growth plan.”
+
+Business Owner
+
+“The level of market intelligence and advisory exceeded our expectations.”
+
+Commercial Property Investor
+
+Keep testimonials elegant and credible.
+
+---
+
+## OPPORTUNITIES PAGE
+
+URL:
+
+/opportunities
+
+Headline:
+
+Commercial Opportunities Across the GTA
+
+Subheadline:
+
+Explore curated commercial real estate opportunities including industrial, retail, investment, off-market, and business-with-property assets.
+
+Create filter-style visual categories:
+
+* Industrial
+* Retail
+* Office
+* Investment
+* Automotive
+* Land / Redevelopment
+* Business With Property
+* Off-Market
+
+Show opportunity cards similar to homepage, with premium images and CTA buttons.
+
+Include CTA section:
+
+Want access to confidential and off-market opportunities?
+
+Button:
+
+Request Confidential Opportunities
+
+---
+
+## SEARCH PROPERTIES PAGE
+
+URL:
+
+/search-properties
+
+This page is very important.
+
+It should be a premium commercial property search request page, not a live MLS search.
+
+Purpose:
+
+Capture detailed search criteria from tenants, buyers, investors, owner-users, business owners, developers, franchise buyers, and landlords.
+
+Hero headline:
+
+Search Commercial Properties Across the GTA
+
+Hero subheadline:
+
+Tell us exactly what you are looking for. Sina Commercial will match your criteria with public listings, off-market opportunities, broker-network properties, and private commercial real estate opportunities across the Greater Toronto Area.
+
+Hero trust line:
+
+Industrial | Retail | Office | Investment | Owner-User | Business With Property
+
+---
+
+## SEARCH PAGE — QUICK SEARCH
+
+Add a compact Quick Search card near the top.
+
+Heading:
+
+Quick Commercial Search
+
+Subheading:
+
+Know what you need? Submit the basics and we will follow up with matching opportunities.
+
+Fields:
+
+* Name
+* Phone
+* Email
+* Lease / Buy / Invest
+* Property type
+* Preferred area
+* Size range
+
+Button:
+
+Get Matching Opportunities
+
+Text below:
+
+For detailed requirements, continue to the full search form below.
+
+---
+
+## SEARCH PAGE — ADVANCED MULTI-STEP WIZARD
+
+Create a multi-step wizard with progress indicator.
+
+Progress text:
+
+Step 1 of 6
+
+Progress bar.
+
+Buttons:
+
+Back
+Next
+Submit Search
+
+The wizard must preserve answers when moving between steps.
+
+Wizard steps:
+
+Step 1 — Search Purpose
+Step 2 — Property Type & Intended Use
+Step 3 — Location & Size
+Step 4 — Budget & Financial Strength
+Step 5 — Special Requirements
+Step 6 — Contact & Submit
+
+---
+
+## STEP 1 — SEARCH PURPOSE
+
+Heading:
+
+What Are You Looking For?
+
+Checkbox options:
+
+* Lease a commercial property
+* Buy a commercial property
+* Invest in income-producing property
+* Buy a business with property
+* Sell a commercial property
+* Lease out my property
+* Explore off-market opportunities
+* Not sure yet — need advisory
+
+Radio field:
+
+I am searching as:
+
+* Business owner / operator
+* Investor
+* Landlord
+* Developer
+* Franchise buyer
+* Broker / agent
+* Family office / private capital
+* Other
+
+Search priority:
+
+* Very urgent
+* Active search
+* Exploring options
+* Long-term planning
+
+---
+
+## STEP 2 — PROPERTY TYPE & INTENDED USE
+
+Allow multiple selections.
+
+Industrial:
+
+* Industrial warehouse
+* Small-bay industrial
+* Flex industrial
+* Manufacturing facility
+* Logistics / distribution
+* Truck terminal
+* Contractor yard
+* Outside storage
+* Cold storage / freezer / cooler
+* Crane building
+* Heavy power facility
+* Heavy manufacturing facility
+* Automotive building
+* Body shop
+* Mechanic shop
+* Tire shop
+* Car dealership property
+* Car wash
+* Self-storage
+* Industrial condo
+* Industrial land
+* Data centre
+* Cannabis-approved industrial facility
+
+Retail / Commercial:
+
+* Retail plaza
+* Street-front retail
+* Restaurant / takeout
+* QSR / franchise location
+* Medical / dental
+* Pharmacy
+* Convenience store
+* Grocery / supermarket
+* Fitness / gym
+* Daycare
+* Banquet hall / event venue
+* Showroom
+* Service commercial
+* Automotive retail
+* Gas station
+* Mixed-use commercial
+
+Office:
+
+* Professional office
+* Medical office
+* Small office condo
+* Office building
+* Creative office
+* Flex office / showroom
+
+Investment:
+
+* Multi-tenant industrial
+* Multi-tenant retail plaza
+* Mixed-use investment property
+* Office investment property
+* Medical building
+* Development land
+* Redevelopment site
+* User-investor property
+* Sale-leaseback opportunity
+* Value-add property
+* Stabilized income property
+* Distressed / underperforming asset
+* Industrial portfolio
+* Retail plaza portfolio
+* Multi-residential investment
+* Student housing
+
+Business With Property:
+
+* Restaurant with property
+* Gas station with property
+* Car wash with property
+* Auto business with property
+* Retail business with property
+* Industrial business with property
+* Plaza business opportunity
+* Other business with real estate
+
+Intended Use:
+
+* Warehousing
+* Light manufacturing
+* Heavy manufacturing
+* Distribution
+* E-commerce fulfillment
+* Contractor storage
+* Construction business
+* Moving company
+* Trucking / logistics
+* Food production
+* Commercial kitchen
+* Cold storage
+* Automotive repair
+* Auto body
+* Car detailing
+* Tire shop
+* Car sales / dealership
+* Car wash
+* Restaurant
+* Takeout / QSR
+* Retail store
+* Medical clinic
+* Dental clinic
+* Pharmacy
+* Daycare
+* Gym / fitness
+* Event venue
+* Office use
+* Showroom
+* Storage
+* Investment income
+* Redevelopment
+* Land banking
+* Franchise expansion
+* Other
+
+Text field:
+
+Describe your business or investment use
+
+Placeholder:
+
+Example: mechanic shop with 3 bays, industrial warehouse for e-commerce, retail plaza investment, daycare location, etc.
+
+---
+
+## STEP 3 — LOCATION & SIZE
+
+Preferred Location:
+
+Toronto:
+
+* Toronto
+* North York
+* Scarborough
+* Etobicoke
+* Downtown Toronto
+* East York
+* York
+
+York Region:
+
+* Vaughan
+* Richmond Hill
+* Markham
+* Newmarket
+* Aurora
+* Stouffville
+* King
+* Georgina
+
+Peel:
+
+* Mississauga
+* Brampton
+* Caledon
+
+Durham:
+
+* Pickering
+* Ajax
+* Whitby
+* Oshawa
+* Clarington
+* Uxbridge
+
+Halton / West GTA:
+
+* Oakville
+* Burlington
+* Milton
+* Halton Hills
+
+Other:
+
+* Hamilton
+* Guelph
+* Kitchener-Waterloo
+* Cambridge
+* Barrie
+* Other Ontario market
+
+Text field:
+
+Preferred intersection / corridor
+
+Placeholder:
+
+Example: Highway 400 corridor, Dufferin & Finch, Steeles, 401 access, Airport Road, etc.
+
+Dropdown:
+
+Maximum travel distance
+
+Options:
+
+* Within 5 km
+* Within 10 km
+* Within 20 km
+* Anywhere in GTA
+* Open to surrounding markets
+
+Size Requirements:
+
+Minimum size:
+
+* Under 1,000 SF
+* 1,000–2,000 SF
+* 2,000–5,000 SF
+* 5,000–10,000 SF
+* 10,000–20,000 SF
+* 20,000–50,000 SF
+* 50,000+ SF
+
+Maximum size:
+
+* Under 1,000 SF
+* 1,000–2,000 SF
+* 2,000–5,000 SF
+* 5,000–10,000 SF
+* 10,000–20,000 SF
+* 20,000–50,000 SF
+* 50,000+ SF
+* Flexible
+
+Office component:
+
+* No office needed
+* Small office
+* 5–10% office
+* 10–25% office
+* 25–50% office
+* Mostly office
+* Flexible
+
+---
+
+## STEP 4 — BUDGET & FINANCIAL STRENGTH
+
+Monthly gross lease budget:
+
+* Under $3,000/month
+* $3,000–$5,000/month
+* $5,000–$10,000/month
+* $10,000–$20,000/month
+* $20,000–$50,000/month
+* $50,000+/month
+* Flexible
+
+Lease rate comfort:
+
+* Under $10/SF net
+* $10–$15/SF net
+* $15–$20/SF net
+* $20–$30/SF net
+* $30+/SF net
+* Depends on property
+
+Purchase budget:
+
+* Under $1M
+* $1M–$2M
+* $2M–$5M
+* $5M–$10M
+* $10M–$25M
+* $25M+
+* Flexible
+
+Down payment / equity available:
+
+* Under $250K
+* $250K–$500K
+* $500K–$1M
+* $1M–$2M
+* $2M–$5M
+* $5M+
+* Prefer not to say yet
+
+Target return / cap rate:
+
+* 4–5%
+* 5–6%
+* 6–7%
+* 7%+
+* Value-add upside more important
+* Not sure yet
+
+Financial position:
+
+* Cash buyer
+* Financing required
+* Pre-approved
+* Need financing guidance
+* Seller financing interest
+* Private capital / JV interest
+
+Business operating history:
+
+* Startup
+* Under 1 year
+* 1–3 years
+* 3–10 years
+* 10+ years
+* Franchise / corporate tenant
+* Prefer not to say yet
+
+Decision status:
+
+* I am the final decision maker
+* I need partner/family approval
+* I need lender approval
+* I am researching for a client
+* Not sure yet
+
+---
+
+## STEP 5 — SPECIAL REQUIREMENTS
+
+Industrial Requirements:
+
+Clear height:
+
+* Under 12'
+* 12'–14'
+* 14'–18'
+* 18'–22'
+* 22'–28'
+* 28'+
+* Not important
+
+Power requirement:
+
+* Standard power
+* 100A
+* 200A
+* 400A
+* 600A
+* 800A+
+* Heavy power required
+* Not sure
+
+Shipping:
+
+* Drive-in door required
+* Truck-level door required
+* Multiple truck-level doors
+* 53' trailer access required
+* Shipping court required
+* No shipping requirement
+
+Special industrial requirements:
+
+* Crane
+* Spray booth
+* Floor drains
+* Outside storage
+* Fenced yard
+* Trailer parking
+* Overnight parking
+* Truck repair permitted
+* Automotive use permitted
+* Food production permitted
+* Cooler/freezer
+* Venting
+* Gas service
+* High ceiling
+* Heavy floor load
+* Multiple units side by side
+
+Retail & Business Requirements:
+
+* Street exposure
+* Plaza location
+* Corner unit
+* Pylon signage
+* High traffic location
+* Parking required
+* Patio potential
+* Restaurant venting
+* Liquor license potential
+* Drive-thru potential
+* Franchise approved site
+* Medical use permitted
+* Daycare permitted
+* Automotive retail permitted
+* Separate entrance
+* Loading access
+* Public transit nearby
+* Close to residential density
+* Close to highway
+* Close to schools
+* Close to employment area
+
+Investment Criteria:
+
+Investment strategy:
+
+* Stable income
+* Value-add
+* Owner-user with investment upside
+* Redevelopment
+* Land assembly
+* Long-term hold
+* Short-term repositioning
+* Sale-leaseback
+* Distressed asset
+* Off-market only
+
+Tenant profile:
+
+* Single tenant
+* Multi-tenant
+* National tenant
+* Local tenants
+* Vacant possession
+* Existing income
+* Lease rollover opportunity
+* Flexible
+
+Risk profile:
+
+* Conservative
+* Balanced
+* Value-add
+* Opportunistic
+* Not sure
+
+Source of opportunity:
+
+* Public listings
+* Broker network
+* Off-market
+* Power of sale
+* Receivership
+* Vendor take-back opportunities
+* Sale-leaseback
+* All sources
+
+---
+
+## STEP 6 — CONTACT & SUBMIT
+
+Fields:
+
+* First name
+* Last name
+* Company name
+* Email
+* Phone number
+* WhatsApp number
+
+Preferred contact method:
+
+* Phone
+* WhatsApp
+* Email
+* Text message
+
+Best time to contact:
+
+* Morning
+* Afternoon
+* Evening
+* Anytime
+
+Timeline:
+
+* Immediately
+* Within 30 days
+* 1–3 months
+* 3–6 months
+* 6–12 months
+* 12+ months
+* Just researching
+
+Checkboxes:
+
+* Notify me when matching opportunities become available.
+* I am interested in receiving GTA commercial market intelligence and opportunity updates.
+* I am open to off-market and confidential opportunities.
+* I would like Sina Commercial to contact me for a consultation.
+
+Additional notes field:
+
+Tell us anything important: zoning, use restrictions, equipment, number of employees, parking needs, loading needs, franchise requirements, investment goals, preferred areas, etc.
+
+Submit button:
+
+Search Matching Commercial Opportunities
+
+Confirmation message after submission:
+
+Thank you. Your commercial property search criteria have been received.
+
+Sina Commercial will review your requirements and match them against public listings, off-market opportunities, broker-network properties, and private commercial real estate opportunities across the GTA.
+
+For urgent requests, contact Sina directly on WhatsApp:
+416-710-1109
+
+Include button:
+
+Message Sina on WhatsApp
+
+---
+
+## SEARCH FORM VALIDATION
+
+Minimum required fields:
+
+* First name
+* Email or phone
+* Search purpose
+* Property type or intended use
+* Preferred location
+* Timeline
+
+Show clean validation messages.
+
+Do not allow completely empty submissions.
+
+---
+
+## HIDDEN LEAD SCORING
+
+Add internal hidden lead scoring logic.
+
+Do not show score to the user.
+
+Suggested scoring:
+
+Timeline:
+
+* Immediately: +25
+* Within 30 days: +20
+* 1–3 months: +15
+* 3–6 months: +10
+
+Buyer/tenant/investor type:
+
+* Investor: +15
+* Business owner / operator: +15
+* Owner-user: +15
+* Developer: +15
+* Franchise buyer: +10
+
+Budget:
+
+* Purchase budget over $2M: +20
+* Purchase budget over $5M: +25
+* Monthly lease budget over $10,000: +15
+* Monthly lease budget over $20,000: +20
+* Down payment over $500K: +15
+* Down payment over $1M: +20
+
+Contact quality:
+
+* Phone provided: +10
+* WhatsApp provided: +10
+* Email provided: +5
+* Detailed notes provided: +10
+
+Search quality:
+
+* Location selected: +10
+* Size selected: +10
+* Property type selected: +10
+* Special requirements selected: +10
+
+Store hidden fields:
+
+lead_score
+lead_priority
+submitted_at
+source_page
+form_type
+
+Lead priority:
+
+75+ = High Priority
+50–74 = Medium Priority
+Under 50 = Standard Priority
+
+---
+
+## DATA STRUCTURE REQUIREMENTS
+
+Structure all form data clearly for future integration.
+
+Use clean field names:
+
+search_purpose
+searching_as
+property_types
+intended_uses
+preferred_locations
+preferred_corridor
+minimum_size
+maximum_size
+office_component
+monthly_budget
+lease_rate_comfort
+purchase_budget
+down_payment
+target_return
+financial_position
+business_history
+decision_status
+clear_height
+power_requirement
+shipping_requirements
+industrial_requirements
+retail_requirements
+investment_strategy
+tenant_profile
+risk_profile
+opportunity_sources
+timeline
+urgency
+first_name
+last_name
+company_name
+email
+phone
+whatsapp
+preferred_contact_method
+best_time_to_contact
+notify_matching_opportunities
+market_updates_opt_in
+additional_notes
+lead_score
+lead_priority
+
+The code should be easy for a developer to later connect to:
+
+* Pipedrive
+* Google Sheets
+* OpenClaw
+* Kevin lead matching
+* Lili WhatsApp follow-up
+* Sina Commercial database
+* MLS/IDX/VOW if compliant later
+
+---
+
+## MARKET INTELLIGENCE PAGE
+
+URL:
+
+/market-intelligence
+
+Headline:
+
+GTA Commercial Market Intelligence
+
+Subheadline:
+
+Insights for investors, business owners, landlords, tenants, and owner-users navigating the Greater Toronto Area commercial real estate market.
+
+Sections:
+
+1. Industrial Market Trends
+   Discuss rental growth, small-bay demand, 53-foot access, clear height, power, logistics, and availability constraints.
+
+2. Investment Corridors
+   Discuss major GTA corridors including Highway 400, Highway 401, Dufferin, Scarborough industrial nodes, Vaughan, Mississauga, Pickering, and Markham.
+
+3. Investor Briefs
+   Position Sina Commercial as a source for confidential acquisition intelligence.
+
+4. Request Latest Market Report
+   Create a lead capture form:
+
+Fields:
+
+* Name
+* Email
+* Phone
+* Investor / Business Owner / Landlord / Tenant / Broker / Other
+* Areas of interest
+* Property types of interest
+
+Button:
+
+Request Latest Market Report
+
+---
+
+## SERVICES PAGE
+
+URL:
+
+/services
+
+Headline:
+
+Commercial Real Estate Advisory Services
+
+Subheadline:
+
+Strategic advisory for commercial tenants, buyers, investors, owner-users, landlords, sellers, and business owners across the GTA.
+
+Service sections:
+
+1. Tenant Representation
+   For industrial, retail, office, automotive, and service commercial tenants.
+
+2. Buyer Representation
+   For business owners, owner-users, and investors acquiring commercial property.
+
+3. Investment Advisory
+   For income-producing assets, value-add properties, plazas, industrial buildings, and off-market acquisitions.
+
+4. Landlord & Seller Advisory
+   For owners looking to lease, sell, reposition, or test private market demand.
+
+5. Off-Market Acquisition Strategy
+   For buyers looking beyond public listings.
+
+6. Business With Property Advisory
+   For buyers seeking operating businesses with attached real estate.
+
+7. Automotive & Specialized Commercial
+   For mechanic shops, body shops, tire shops, car wash, dealerships, truck repair, and automotive service uses.
+
+CTA:
+
+Book Consultation
+
+---
+
+## CONTACT PAGE
+
+URL:
+
+/contact
+
+Headline:
+
+Contact Sina Commercial
+
+Subheadline:
+
+For commercial property searches, confidential opportunities, investment advisory, landlord representation, or market intelligence requests, contact Sina Commercial directly.
+
+Contact card:
+
+Sina Shahravan
+Vice President, Sales Associate
+Nave Real Estate Brokerage Inc.
+M: 416-710-1109
+O: 905-556-3232
+E: [sina@sinacommercial.ca](mailto:sina@sinacommercial.ca)
+Greater Toronto Area, Ontario
+
+Buttons:
+
+Call Sina
+Message on WhatsApp
+Email Sina
+
+Contact form fields:
+
+* First name
+* Last name
+* Company
+* Email
+* Phone
+* Inquiry type
+* Message
+
+Inquiry type options:
+
+* Looking to lease
+* Looking to buy
+* Investor inquiry
+* Selling / leasing my property
+* Market report request
+* Off-market opportunity inquiry
+* General question
+
+Submit button:
+
+Send Inquiry
+
+---
+
+## SEO REQUIREMENTS
+
+Use SEO-friendly page titles and meta descriptions.
+
+Suggested titles:
+
+Home:
+Sina Commercial | GTA Commercial Real Estate Advisory
+
+Opportunities:
+Commercial Real Estate Opportunities GTA | Sina Commercial
+
+Search Properties:
+Search Commercial Properties GTA | Sina Commercial
+
+Market Intelligence:
+GTA Commercial Real Estate Market Intelligence | Sina Commercial
+
+Services:
+Commercial Real Estate Advisory Services GTA | Sina Commercial
+
+Contact:
+Contact Sina Commercial | GTA Commercial Real Estate
+
+Use keywords naturally:
+
+* GTA commercial real estate
+* Toronto commercial real estate
+* industrial space for lease
+* commercial property for sale
+* retail plaza investment
+* off-market commercial real estate
+* commercial real estate advisor
+* industrial real estate GTA
+* business with property
+* owner-user commercial property
+
+---
+
+## TECHNICAL REQUIREMENTS
+
+Build the website with clean, maintainable code.
+
+Use responsive layout.
+
+No horizontal scrolling.
+
+Fast loading.
+
+Compressed images.
+
+Reusable components.
+
+Clear folder structure.
+
+Make it easy to later deploy to:
+
+* GitHub
+* Hostinger VPS
+* Vercel
+* Netlify
+
+Make forms easy to connect later to:
+
+* Pipedrive
+* Google Sheets
+* email notifications
+* OpenClaw
+* Kevin
+* Lili
+
+For now, form submissions can show a success message and store data locally/in state if backend is not configured.
+
+---
+
+## FINAL GOAL
+
+The final website should have three lead generation engines:
+
+1. Request Confidential Opportunities
+   For serious investors and buyers who want off-market access.
+
+2. Search Commercial Properties
+   For tenants, buyers, investors, owner-users, franchise buyers, business owners, and developers looking for matching properties.
+
+3. Request Latest Market Report
+   For users interested in GTA commercial market intelligence.
+
+The final impression should be:
+
+This is not a generic realtor website.
+
+This is a premium GTA commercial real estate intelligence and opportunity platform led by Sina Shahravan.
+
+Build it polished, responsive, credible, and ready for Version 1 public launch.
