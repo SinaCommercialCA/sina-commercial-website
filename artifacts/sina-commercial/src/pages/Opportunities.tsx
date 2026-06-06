@@ -119,7 +119,7 @@ export default function Opportunities() {
               </div>
             ) : filtered.map((opp, idx) => (
               <motion.div key={idx} variants={fadeInUp}>
-                <Card className="bg-card border-white/5 overflow-hidden group hover:border-secondary/50 transition-all duration-300 h-full">
+                <Card className="bg-card border-white/5 overflow-hidden group hover:border-secondary/50 transition-all duration-300 h-full sc-card-lift">
                   <div className="relative h-56 overflow-hidden">
                     <div className="absolute top-4 left-4 z-10 bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-secondary rounded-sm">
                       {opp.type}
@@ -167,7 +167,7 @@ export default function Opportunities() {
             asChild
             size="lg"
             data-testid="btn-request-confidential"
-            className="bg-primary hover:bg-primary/90 text-white rounded-sm px-10 h-14 text-base"
+            className="bg-primary hover:bg-primary/90 text-white rounded-sm px-10 h-14 text-base btn-lift btn-lift-red"
           >
             <Link href="/contact">Request Confidential Opportunities <ArrowRight className="ml-2 w-5 h-5" /></Link>
           </Button>

@@ -285,7 +285,7 @@ export default function Contact() {
                     type="submit"
                     size="lg"
                     data-testid="btn-send-inquiry"
-                    className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold"
+                    className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold btn-lift btn-lift-red"
                   >
                     Send Inquiry
                   </Button>

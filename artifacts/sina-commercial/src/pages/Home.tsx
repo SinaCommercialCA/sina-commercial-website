@@ -73,10 +73,10 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-sm px-8 h-12 sm:h-14 text-sm sm:text-base">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-sm px-8 h-12 sm:h-14 text-sm sm:text-base btn-lift btn-lift-red">
                 <Link href="/contact">Request Confidential Opportunities</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 rounded-sm px-8 h-12 sm:h-14 text-sm sm:text-base">
+              <Button asChild size="lg" variant="outline" className="border-secondary text-secondary hover:bg-secondary/10 rounded-sm px-8 h-12 sm:h-14 text-sm sm:text-base btn-lift btn-lift-gold">
                 <Link href="/contact">Book Consultation</Link>
               </Button>
             </motion.div>
@@ -152,7 +152,7 @@ export default function Home() {
           <p className="text-base sm:text-lg text-muted-foreground mb-8 leading-relaxed">
             Submit your exact criteria and Sina Commercial will search public listings, off-market opportunities, broker-network properties, and private commercial opportunities across the GTA.
           </p>
-          <Button asChild size="lg" className="bg-secondary text-background hover:bg-secondary/90 rounded-sm px-8 h-12 sm:h-14 text-sm sm:text-base font-semibold">
+          <Button asChild size="lg" className="bg-secondary text-background hover:bg-secondary/90 rounded-sm px-8 h-12 sm:h-14 text-sm sm:text-base font-semibold btn-lift btn-lift-gold">
             <Link href="/search-properties">Search Commercial Properties</Link>
           </Button>
         </div>
@@ -177,7 +177,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {featuredOpportunities.map((opp, idx) => (
-              <Card key={idx} data-testid={`card-opportunity-${idx}`} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors">
+              <Card key={idx} data-testid={`card-opportunity-${idx}`} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors sc-card-lift">
                 <div className="relative h-52 overflow-hidden">
                   <div className="absolute top-3 left-3 z-10 bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-secondary rounded-sm">
                     {opp.type}
@@ -250,7 +250,7 @@ export default function Home() {
               </div>
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white">GTA Commercial Market Intelligence</h2>
             </div>
-            <Button asChild className="bg-primary hover:bg-primary/90 text-white rounded-sm shrink-0 text-sm">
+            <Button asChild className="bg-primary hover:bg-primary/90 text-white rounded-sm shrink-0 text-sm btn-lift btn-lift-red">
               <Link href="/market-intelligence">Request Latest Market Report</Link>
             </Button>
           </div>

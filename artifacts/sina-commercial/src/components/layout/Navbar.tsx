@@ -20,38 +20,44 @@ export function Navbar() {
   const isActive = (href: string) => location === href;
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+    <nav className="sticky top-0 z-50 w-full border-b border-white/8 bg-background/96 backdrop-blur-md supports-[backdrop-filter]:bg-background/75">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-[72px] items-center justify-between">
-          {/* LOGO */}
+          {/* LOGO — blend mode dissolves PNG background into site navy */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary/50">
               <img
                 src={sinaLogoPath}
                 alt="Sina Commercial"
-                className="h-14 sm:h-16 w-auto"
+                className="h-14 sm:h-16 w-auto logo-blend"
               />
             </Link>
           </div>
 
           {/* DESKTOP NAV */}
-          <div className="hidden lg:flex lg:items-center lg:gap-6 xl:gap-8">
+          <div className="hidden lg:flex lg:items-center lg:gap-7 xl:gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-sm font-medium transition-colors relative pb-0.5 ${
+                className={`text-sm font-medium transition-all duration-200 relative pb-0.5 group ${
                   isActive(link.href)
-                    ? "text-secondary after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-secondary"
-                    : "text-foreground/75 hover:text-secondary"
+                    ? "text-secondary"
+                    : "text-foreground/70 hover:text-secondary"
                 }`}
               >
                 {link.name}
+                {/* animated underline */}
+                <span
+                  className={`absolute bottom-0 left-0 h-px bg-secondary transition-all duration-250 ${
+                    isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
               </Link>
             ))}
             <Button
               asChild
-              className="bg-primary hover:bg-primary/90 text-white font-medium rounded-sm px-5 text-sm h-10"
+              className="bg-primary hover:bg-primary/90 text-white font-medium rounded-sm px-5 text-sm h-10 btn-lift btn-lift-red"
             >
               <Link href="/contact">Request Confidential Opportunities</Link>
             </Button>
@@ -68,16 +74,16 @@ export function Navbar() {
               </SheetTrigger>
               <SheetContent side="right" className="bg-background border-l border-white/10 w-[280px] sm:w-[360px]">
                 <div className="pt-4 pb-2">
-                  <img src={sinaLogoPath} alt="Sina Commercial" className="h-12 w-auto mb-8" />
+                  <img src={sinaLogoPath} alt="Sina Commercial" className="h-12 w-auto logo-blend mb-8" />
                 </div>
                 <div className="flex flex-col gap-1">
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}
                       href={link.href}
-                      className={`px-3 py-3 text-base font-medium rounded-sm transition-colors ${
+                      className={`px-3 py-3 text-base font-medium rounded-sm transition-all duration-200 ${
                         isActive(link.href)
-                          ? "text-secondary bg-secondary/10"
+                          ? "text-secondary bg-secondary/8"
                           : "text-foreground hover:text-secondary hover:bg-white/5"
                       }`}
                       onClick={() => setIsOpen(false)}
@@ -88,7 +94,7 @@ export function Navbar() {
                   <div className="pt-4 mt-2 border-t border-white/10">
                     <Button
                       asChild
-                      className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm"
+                      className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm btn-lift btn-lift-red"
                     >
                       <Link href="/contact" onClick={() => setIsOpen(false)}>
                         Request Confidential Opportunities

@@ -161,12 +161,119 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
+  }
+
+  /* Premium text selection */
+  ::selection {
+    background-color: hsl(var(--secondary) / 0.25);
+    color: hsl(0 0% 100%);
+  }
+
+  /* Premium scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--secondary) / 0.35);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--secondary) / 0.55);
+  }
+}
+
+@layer components {
+  /* ── LOGO BLEND ────────────────────────────────────────────
+     Makes the logo PNG's navy background dissolve into the
+     site's dark navy, while preserving gold/red/white marks.
+  ─────────────────────────────────────────────────────────── */
+  .logo-blend {
+    mix-blend-mode: screen;
+    filter: brightness(1.06) contrast(1.02);
+  }
+
+  /* ── PREMIUM BUTTON LIFT ────────────────────────────────── */
+  .btn-lift {
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease !important;
+  }
+  .btn-lift:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+  .btn-lift:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  .btn-lift-gold:hover:not(:disabled) {
+    box-shadow: 0 6px 24px hsl(var(--secondary) / 0.25);
+  }
+
+  .btn-lift-red:hover:not(:disabled) {
+    box-shadow: 0 6px 24px hsl(var(--primary) / 0.3);
+  }
+
+  /* ── PREMIUM INPUT FOCUS ────────────────────────────────── */
+  .sc-input {
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .sc-input:focus-visible {
+    outline: none;
+    border-color: hsl(var(--secondary) / 0.7) !important;
+    box-shadow: 0 0 0 3px hsl(var(--secondary) / 0.12), 0 0 0 1px hsl(var(--secondary) / 0.35);
+  }
+
+  /* Apply gold focus to all standard form elements */
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: none;
+    border-color: hsl(var(--secondary) / 0.7) !important;
+    box-shadow: 0 0 0 3px hsl(var(--secondary) / 0.12), 0 0 0 1px hsl(var(--secondary) / 0.35) !important;
+  }
+
+  /* ── PREMIUM CARD ELEVATION ─────────────────────────────── */
+  .sc-card-lift {
+    transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+  }
+  .sc-card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  /* ── NAV LINK REFINEMENT ────────────────────────────────── */
+  .nav-link {
+    transition: color 180ms ease;
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: hsl(var(--secondary));
+    transition: width 200ms ease;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  .nav-link.active::after {
+    width: 100%;
   }
 }
 

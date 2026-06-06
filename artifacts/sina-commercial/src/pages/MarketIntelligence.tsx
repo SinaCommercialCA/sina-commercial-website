@@ -312,7 +312,7 @@ export default function MarketIntelligence() {
                 type="submit"
                 size="lg"
                 data-testid="btn-request-report"
-                className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold"
+                className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold btn-lift btn-lift-red"
               >
                 Request Latest Market Report
               </Button>

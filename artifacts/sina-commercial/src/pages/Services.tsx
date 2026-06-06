@@ -233,7 +233,7 @@ export default function Services() {
             asChild
             size="lg"
             data-testid="btn-book-consultation"
-            className="bg-primary hover:bg-primary/90 text-white rounded-sm px-10 h-14 text-base"
+            className="bg-primary hover:bg-primary/90 text-white rounded-sm px-10 h-14 text-base btn-lift btn-lift-red"
           >
             <Link href="/contact">
               Book Consultation <ArrowRight className="ml-2 w-5 h-5" />

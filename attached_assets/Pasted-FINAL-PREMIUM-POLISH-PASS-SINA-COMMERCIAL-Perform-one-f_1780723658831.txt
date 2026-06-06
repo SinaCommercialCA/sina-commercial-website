@@ -1,0 +1,165 @@
+FINAL PREMIUM POLISH PASS — SINA COMMERCIAL
+
+Perform one final premium refinement pass on the entire Sina Commercial website.
+
+IMPORTANT:
+
+* Do NOT redesign the website.
+* Do NOT change the overall layout.
+* Do NOT change the branding colors.
+* Do NOT change typography families.
+* Do NOT remove any existing content.
+* Do NOT alter page structure.
+
+This is a luxury-quality polish pass only.
+
+==================================================
+LOGO REFINEMENT
+===============
+
+The logo currently appears slightly darker than the website background and feels like a separate square badge.
+
+Please:
+
+* Match the logo background EXACTLY to the website primary navy color (#0A1F44).
+* Eliminate any appearance of the logo being a dark "stamp" sitting on top of the website.
+* The logo should feel naturally integrated into the header and page design.
+* Preserve all gold, red, white, and branding elements exactly as they are.
+* Maintain sharp image quality and clarity.
+* Keep the logo highly visible while feeling more premium and seamless.
+
+==================================================
+HEADER
+======
+
+* Review alignment of all navigation items.
+* Ensure spacing between menu items is perfectly balanced.
+* Refine hover states with elegant transitions.
+* Verify visual consistency across desktop and mobile.
+
+==================================================
+BUTTONS
+=======
+
+Refine all CTA buttons:
+
+* Add subtle premium hover effects.
+* Use smooth transitions (150–250ms).
+* Slight lift effect on hover.
+* Very subtle glow or shadow enhancement.
+* Maintain professional institutional appearance.
+* No flashy animations.
+
+==================================================
+CARDS & PANELS
+==============
+
+Review all:
+
+* Opportunity cards
+* Service cards
+* Market Intelligence cards
+* Featured property cards
+
+Apply:
+
+* Slight depth improvements
+* Consistent shadows
+* Refined hover interactions
+* Subtle elevation effects
+
+Goal:
+Feel like a private investment platform rather than a generic brokerage website.
+
+==================================================
+SPACING & VISUAL RHYTHM
+=======================
+
+Review the entire site for consistency.
+
+Ensure:
+
+* Heading spacing is balanced.
+* Subheadings align consistently.
+* Sections flow naturally.
+* No areas feel cramped.
+* No areas feel excessively empty.
+* Consistent vertical rhythm throughout all pages.
+
+==================================================
+FORMS
+=====
+
+Improve user experience on:
+
+* Search Commercial Properties
+* Market Report Request
+* Confidential Opportunities forms
+
+Refinements:
+
+* Gold accent focus states.
+* Clear active field indication.
+* Strong placeholder readability.
+* Consistent spacing and alignment.
+* Smooth field transitions.
+
+==================================================
+MOBILE OPTIMIZATION
+===================
+
+Verify:
+
+* Logo scales properly.
+* Navigation remains clean.
+* CTA buttons stay prominent.
+* Forms remain easy to complete.
+* No horizontal scrolling.
+* Consistent spacing on all devices.
+
+==================================================
+PERFORMANCE
+===========
+
+Review for optimization:
+
+* Compress oversized images.
+* Remove unnecessary effects.
+* Maintain fast load speed.
+* Preserve visual quality.
+
+==================================================
+ACCESSIBILITY
+=============
+
+Verify:
+
+* Strong color contrast.
+* Keyboard navigation support.
+* Proper form labeling.
+* Readable text throughout.
+
+==================================================
+FINAL OBJECTIVE
+===============
+
+The finished website should feel like:
+
+* A boutique commercial real estate advisory firm.
+* A private investment acquisition platform.
+* An institutional-grade commercial intelligence brand.
+
+Think:
+
+Premium.
+Confidential.
+Investor-focused.
+Professional.
+Trustworthy.
+
+The site already looks excellent.
+
+Your task is to elevate it from approximately 95/100 to 100/100 through subtle refinement only.
+
+Refine.
+Do not redesign.
