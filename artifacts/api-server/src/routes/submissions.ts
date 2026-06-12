@@ -492,7 +492,6 @@ router.post("/submissions", async (req: Request, res: Response) => {
         name: `${sub.contact.firstName} ${sub.contact.lastName}`.trim(),
         email: sub.contact.email,
         phone: sub.contact.phone,
-        org_name: sub.contact.company,
       });
       personId = person.id;
       logger.info({ submissionId, personId, existing: false }, "Person created");
@@ -553,7 +552,7 @@ router.post("/submissions", async (req: Request, res: Response) => {
       name: `${sub.contact.firstName} ${sub.contact.lastName}`.trim(),
       email: sub.contact.email,
       phone: sub.contact.phone,
-      score: s.formType === "advanced-search" ? score : undefined,
+      score: sub.formType === "advanced-search" ? score : undefined,
       summary,
     }).catch((err) => {
       logger.error({ err, submissionId }, "Notification failed");

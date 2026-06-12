@@ -16,7 +16,7 @@ export interface PipedrivePerson {
   name: string;
   email: Array<{ value: string; primary: boolean }>;
   phone: Array<{ value: string; primary: boolean }>;
-  org_name?: string;
+
 }
 
 export interface PipedriveDeal {
@@ -30,7 +30,8 @@ export interface PipedriveDeal {
 // ── helpers ────────────────────────────────────────────────────
 
 function url(path: string): string {
-  return `${BASE}${path}?api_token=${TOKEN}`;
+  const sep = path.includes("?") ? "&" : "?";
+  return `${BASE}${path}${sep}api_token=${TOKEN}`;
 }
 
 async function pipedriveFetch<T>(path: string, init?: RequestInit): Promise<T> {
@@ -81,7 +82,7 @@ export async function createPerson(data: {
   name: string;
   email: string;
   phone?: string;
-  org_name?: string;
+
 }): Promise<PipedrivePerson> {
   const result = await pipedriveFetch<PersonCreateResponse>("/persons", {
     method: "POST",
