@@ -167,6 +167,27 @@ const STEP_LABELS = [
 function QuickSearch() {
   const [qs, setQs] = useState({ name: "", phone: "", email: "", mode: "", type: "", area: "", size: "" });
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleQuickSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(false);
+    try {
+      const res = await fetch("/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ form_type: "quick-search", payload: qs }),
+      });
+      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+      setDone(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (done) return (
     <div className="text-center py-8">
@@ -176,7 +197,7 @@ function QuickSearch() {
   );
 
   return (
-    <form data-testid="form-quick-search" onSubmit={e => { e.preventDefault(); setDone(true); }} className="space-y-4">
+    <form data-testid="form-quick-search" onSubmit={handleQuickSubmit} className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="space-y-1.5">
           <Label className="text-white/75 text-sm">Name</Label>
@@ -233,9 +254,14 @@ function QuickSearch() {
           value={qs.size} onChange={e => setQs(q => ({ ...q, size: e.target.value }))}
           className="bg-background border-white/20 text-white placeholder:text-muted-foreground h-10" />
       </div>
-      <Button type="submit" data-testid="btn-quick-search"
-        className="w-full bg-secondary text-background hover:bg-secondary/90 rounded-sm h-11 font-semibold text-sm">
-        GET MATCHING OPPORTUNITIES
+      {error && (
+        <div className="text-red-400 text-xs text-center py-2 border border-red-500/20 bg-red-500/5">
+          Unable to submit. Please try again or email sina@sinacommercial.ca.
+        </div>
+      )}
+      <Button type="submit" disabled={submitting} data-testid="btn-quick-search"
+        className="w-full bg-secondary text-background hover:bg-secondary/90 rounded-sm h-11 font-semibold text-sm disabled:opacity-60">
+        {submitting ? "Submitting..." : "GET MATCHING OPPORTUNITIES"}
       </Button>
       <p className="text-xs text-muted-foreground text-center">For detailed requirements, use the full Advanced Search below.</p>
     </form>
@@ -246,6 +272,7 @@ function QuickSearch() {
 export default function SearchProperties() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<LeadData>(INIT);
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [validationMsg, setValidationMsg] = useState("");
   const wizardRef = useRef<HTMLDivElement>(null);
@@ -279,7 +306,7 @@ export default function SearchProperties() {
   const toggleMulti = (key: "searchPurpose" | "propertyTypes" | "intendedUse" | "locations" | "retailRequirements", val: string) =>
     setData(d => ({ ...d, [key]: toggleArr(d[key] as string[], val) }));
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { firstName, lastName, email, phone } = data.contactInfo;
     if (!firstName.trim() || !lastName.trim()) {
       setValidationMsg("Please enter your first and last name.");
@@ -294,13 +321,33 @@ export default function SearchProperties() {
       return;
     }
     setValidationMsg("");
+    setSubmitting(true);
+
     const { score, priority } = scoreLeads(data);
-    console.log("Lead Score:", score, "Priority:", priority, "Submitted:", {
-      ...data, leadScore: score, leadPriority: priority,
-      submittedAt: new Date().toISOString(), source: "/search-properties",
-    });
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    try {
+      const payload = {
+        ...data,
+        leadScore: score,
+        leadPriority: priority,
+        source: "/search-properties",
+      };
+
+      const res = await fetch("/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ form_type: "advanced-search", payload }),
+      });
+
+      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setValidationMsg("Unable to submit. Please try again or email sina@sinacommercial.ca.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) return (
@@ -982,9 +1029,10 @@ export default function SearchProperties() {
               <Button
                 data-testid="btn-submit-search"
                 onClick={handleSubmit}
-                className="bg-primary hover:bg-primary/90 text-white rounded-sm px-6 h-11 font-semibold text-sm"
+                disabled={submitting}
+                className="bg-primary hover:bg-primary/90 text-white rounded-sm px-6 h-11 font-semibold text-sm disabled:opacity-60"
               >
-                Search Matching Opportunities
+                {submitting ? "Submitting..." : "Search Matching Opportunities"}
               </Button>
             )}
           </div>

@@ -18,6 +18,8 @@ const staggerContainer = {
 
 export default function MarketIntelligence() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [form, setForm] = useState({
     name: "", email: "", phone: "", role: "", areas: "", propertyTypes: ""
   });
@@ -26,9 +28,23 @@ export default function MarketIntelligence() {
     document.title = "GTA Commercial Real Estate Market Intelligence | Sina Commercial";
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(false);
+    try {
+      const res = await fetch("/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ form_type: "market-report", payload: form }),
+      });
+      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -308,13 +324,19 @@ export default function MarketIntelligence() {
                   className="bg-background border-white/20 text-white placeholder:text-muted-foreground"
                 />
               </div>
+              {submitError && (
+                <div className="text-red-400 text-sm text-center py-2 border border-red-500/20 bg-red-500/5">
+                  Unable to submit. Please try again or email sina@sinacommercial.ca.
+                </div>
+              )}
               <Button
                 type="submit"
                 size="lg"
+                disabled={submitting}
                 data-testid="btn-request-report"
-                className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold btn-lift btn-lift-red"
+                className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold btn-lift btn-lift-red disabled:opacity-60"
               >
-                Request Latest Market Report
+                {submitting ? "Submitting..." : "Request Latest Market Report"}
               </Button>
             </form>
           )}

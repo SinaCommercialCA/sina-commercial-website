@@ -29,6 +29,8 @@ const INQUIRY_TYPES = [
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [form, setForm] = useState({
     firstName: "", lastName: "", company: "", email: "",
     phone: "", inquiryType: "", message: ""
@@ -38,9 +40,28 @@ export default function Contact() {
     document.title = "Contact Sina Commercial | GTA Commercial Real Estate";
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(false);
+
+    try {
+      const res = await fetch("/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form_type: "contact",
+          payload: form,
+        }),
+      });
+
+      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -182,6 +203,10 @@ export default function Contact() {
                   data-testid="form-contact"
                   className="space-y-6"
                 >
+                  {/* Honeypot — hidden from humans, filled by bots */}
+                  <div style={{ position: "absolute", left: "-9999px", opacity: 0 }} aria-hidden="true">
+                    <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                  </div>
                   <div className="flex items-center gap-4 mb-8">
                     <div className="h-px w-12 bg-primary" />
                     <h2 className="font-serif text-2xl text-white">Send an Inquiry</h2>
@@ -281,13 +306,19 @@ export default function Contact() {
                     />
                   </div>
 
+                  {submitError && (
+                    <div className="text-red-400 text-sm text-center py-2 border border-red-500/20 bg-red-500/5">
+                      Unable to send your inquiry. Please try again or email sina@sinacommercial.ca.
+                    </div>
+                  )}
                   <Button
                     type="submit"
                     size="lg"
+                    disabled={submitting}
                     data-testid="btn-send-inquiry"
-                    className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold btn-lift btn-lift-red"
+                    className="w-full bg-primary hover:bg-primary/90 text-white rounded-sm h-14 text-base font-semibold btn-lift btn-lift-red disabled:opacity-60"
                   >
-                    Send Inquiry
+                    {submitting ? "Sending..." : "Send Inquiry"}
                   </Button>
                 </motion.form>
               )}
