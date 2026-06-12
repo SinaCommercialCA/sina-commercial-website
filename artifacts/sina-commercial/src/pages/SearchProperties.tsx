@@ -14,6 +14,7 @@ function CB({
   return (
     <label
       data-testid={testId}
+      onClick={() => onChange(!checked)}
       className={`flex items-start gap-2.5 px-3 py-2.5 border cursor-pointer transition-all rounded-sm text-sm select-none
         ${checked ? "border-secondary bg-secondary/10 text-white" : "border-white/12 text-white/65 hover:border-white/25 hover:text-white/85"}`}
     >
@@ -326,8 +327,28 @@ export default function SearchProperties() {
     const { score, priority } = scoreLeads(data);
 
     try {
+      // Flatten nested structures to match API validation schema
+      const { budget, industrialRequirements, investmentProfile, contactInfo, sizeRequirements, notifications, ...rest } = data;
+      const flatNotifications = Object.entries(notifications)
+        .filter(([, v]) => v)
+        .map(([k]) => k);
       const payload = {
-        ...data,
+        ...rest,
+        // flatten budget
+        ...budget,
+        // flatten industrial
+        ...industrialRequirements,
+        // flatten investment profile
+        investmentProfile,
+        // flatten contact
+        ...contactInfo,
+        // convert size strings to numbers
+        sizeRequirements: {
+          min: sizeRequirements.min ? Number(sizeRequirements.min.replace(/[^0-9]/g, "")) : undefined,
+          max: sizeRequirements.max ? Number(sizeRequirements.max.replace(/[^0-9]/g, "")) : undefined,
+          office: sizeRequirements.office ? Number(sizeRequirements.office.replace(/[^0-9]/g, "")) : undefined,
+        },
+        notifications: flatNotifications,
         leadScore: score,
         leadPriority: priority,
         source: "/search-properties",
