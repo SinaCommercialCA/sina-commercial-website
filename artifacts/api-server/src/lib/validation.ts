@@ -9,8 +9,9 @@ import * as zod from "zod";
 // ── Contact ────────────────────────────────────────────────────
 
 const contactEnvelope = zod.object({
-  firstName: zod.string().min(1).max(100).optional().default(""),
-  lastName: zod.string().min(1).max(100).optional().default(""),
+  firstName: zod.string().max(100).optional().default(""),
+  lastName: zod.string().max(100).optional().default(""),
+  name: zod.string().max(200).optional().default(""),
   company: zod.string().max(200).optional().default(""),
   email: zod.string().email().max(255).optional().default(""),
   phone: zod.string().max(30).optional().default(""),
@@ -182,15 +183,39 @@ export function validateSubmission(body: {
     success: true,
     data: {
       formType,
-      contact: {
-        firstName: String(data.firstName || ""),
-        lastName: String(data.lastName || ""),
-        company: String(data.company || ""),
-        email: String(data.email || ""),
-        phone: String(data.phone || ""),
-      },
+      contact: resolveName(data),
       payload: data,
     },
+  };
+}
+
+function resolveName(data: Record<string, unknown>): {
+  firstName: string;
+  lastName: string;
+  company: string;
+  email: string;
+  phone: string;
+} {
+  let firstName = String(data.firstName || "");
+  let lastName = String(data.lastName || "");
+  const name = String(data.name || "");
+
+  if (!firstName && !lastName && name) {
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) {
+      firstName = parts[0];
+    } else if (parts.length >= 2) {
+      firstName = parts[0];
+      lastName = parts.slice(1).join(" ");
+    }
+  }
+
+  return {
+    firstName,
+    lastName,
+    company: String(data.company || ""),
+    email: String(data.email || ""),
+    phone: String(data.phone || ""),
   };
 }
 
