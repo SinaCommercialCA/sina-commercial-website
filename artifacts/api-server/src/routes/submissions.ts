@@ -4,9 +4,8 @@ import {
   searchPersonByEmail,
   createPerson,
   updatePerson,
-  createDeal,
-  addDealNote,
-  getPersonDeals,
+  createLead,
+  addLeadNote,
 } from "../lib/pipedrive";
 import { appendRow } from "../lib/sheets";
 import { notifySina } from "../lib/notification";
@@ -206,42 +205,20 @@ function buildSummary(s: ValidatedSubmission, score: number): string {
   }
 }
 
-function buildDealTitle(s: ValidatedSubmission): string {
-  const name = `${s.contact.firstName} ${s.contact.lastName}`;
-  const p = s.payload as Record<string, unknown>;
-
-  if (s.formType === "advanced-search") {
-    const dealType = firstOf(p.searchPurpose, "Lease/Buy");
-    const propType = firstOf(p.propertyTypes, "");
-    const area = firstOf(p.locations, "");
-    const parts = [dealType];
-    if (propType) parts.push(propType);
-    parts.push(`— ${name}`);
-    if (area) parts.push(`(${area})`);
-    return parts.join(" ");
-  }
-
-  if (s.formType === "quick-search") {
-    const mode = safeString(p.mode);
-    const type = safeString(p.type);
-    const area = safeString(p.area);
-    const parts: string[] = [];
-    if (mode) parts.push(mode);
-    if (type) parts.push(type);
-    parts.push(`— ${name}`);
-    if (area) parts.push(`(${area})`);
-    return parts.join(" ");
-  }
-
-  if (s.formType === "contact") {
-    const inquiry = safeString(p.inquiryType);
-    return `${inquiry || "Inquiry"} — ${name}`;
-  }
-
-  return `Website Lead — ${name}`;
+function buildLeadTitle(s: ValidatedSubmission): string {
+  const name = `${s.contact.firstName} ${s.contact.lastName}`.trim() || "New Lead";
+  const formLabels: Record<string, string> = {
+    "contact": "Contact Form",
+    "quick-search": "Quick Search",
+    "advanced-search": "Advanced Search",
+    "market-report": "Market Report",
+  };
+  const formLabel = formLabels[s.formType] || s.formType;
+  return `🌐 — ${name}: ${formLabel}`;
 }
 
-function buildDealNote(s: ValidatedSubmission, submissionId: string, score: number, priority: string): string {
+
+function buildLeadNote(s: ValidatedSubmission, submissionId: string, score: number, priority: string): string {
   const p = s.payload as Record<string, unknown>;
   const lines: string[] = [];
 
@@ -382,7 +359,7 @@ function buildCustomFields(s: ValidatedSubmission): Record<string, string> {
   return fields;
 }
 
-function buildSheetRow(s: ValidatedSubmission, submissionId: string, pipedrivePersonId: number, pipedriveDealId: number, score: number, priority: string): Array<string | number | null> {
+function buildSheetRow(s: ValidatedSubmission, submissionId: string, pipedrivePersonId: number, pipedriveLeadId: string, score: number, priority: string): Array<string | number | null> {
   const p = s.payload as Record<string, unknown>;
 
   return [
@@ -420,7 +397,7 @@ function buildSheetRow(s: ValidatedSubmission, submissionId: string, pipedrivePe
     s.formType === "market-report" ? safeString(p.propertyTypes) : null,
     // Pipeline metadata
     pipedrivePersonId,
-    pipedriveDealId,
+    pipedriveLeadId,
     score || null,
     priority || null,
     "new",
@@ -497,46 +474,25 @@ router.post("/submissions", async (req: Request, res: Response) => {
       logger.info({ submissionId, personId, existing: false }, "Person created");
     }
 
-    // 5. Check for existing active deals (avoid duplicates)
-    const existingDeals = await getPersonDeals(personId);
-    const activeDeals = existingDeals.filter(
-      (d) =>
-        d.stage_id !== 13 && // not Firmed
-        d.stage_id !== 14,   // not Firmed
-    );
-
-    let dealId: number;
-    const dealTitle = buildDealTitle(sub);
-
-    if (activeDeals.length > 0 && sub.formType !== "market-report") {
-      // Re-use existing active deal — just add a note
-      dealId = activeDeals[0].id as number;
-      const note = buildDealNote(sub, submissionId, 0, "Standard");
-      await addDealNote(dealId, `🌐 Returned via website (${sub.formType})\n\n${note}`);
-      logger.info({ submissionId, dealId, reused: true }, "Reused existing deal");
-    } else {
-      // Create new deal
-      const customFields = buildCustomFields(sub);
-      const deal = await createDeal({
-        title: dealTitle,
-        person_id: personId,
-        custom_fields: customFields,
-      });
-      dealId = deal.id;
-
-      // Add detail note
-      const { score, priority } = scoreLead(sub);
-      const note = buildDealNote(sub, submissionId, score, priority);
-      await addDealNote(dealId, note);
-
-      logger.info({ submissionId, dealId, score, priority }, "Deal created");
-    }
-
-    // 6. Score
+        // 5. Score the lead
     const { score, priority } = scoreLead(sub);
 
+    // 6. Create Lead in Pipedrive (not a Deal — stays in Leads inbox)
+    const leadTitle = buildLeadTitle(sub);
+    const lead = await createLead({
+      title: leadTitle,
+      person_id: personId,
+      
+    });
+
+    // Add detail note
+    const note = buildLeadNote(sub, submissionId, score, priority);
+    await addLeadNote(lead.id, note);
+
+    logger.info({ submissionId, leadId: lead.id, score, priority }, "Lead created");
+
     // 7. Google Sheet backup
-    const sheetRow = buildSheetRow(sub, submissionId, personId, dealId, score, priority);
+    const sheetRow = buildSheetRow(sub, submissionId, personId, lead.id, score, priority);
     try {
       await appendRow("website-leads", sheetRow);
     } catch (sheetErr) {
@@ -564,7 +520,7 @@ router.post("/submissions", async (req: Request, res: Response) => {
       submissionId,
       formType: sub.formType,
       personId,
-      dealId,
+      leadId: lead.id,
       score,
       priority,
       durationMs,
