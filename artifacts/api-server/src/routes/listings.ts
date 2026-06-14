@@ -295,28 +295,10 @@ router.get("/listings/featured", async (_req: Request, res: Response) => {
   }
 });
 
-// ── GET /api/listings/:id ─────────────────────────────────────
-
-router.get("/listings/:id", async (req: Request, res: Response) => {
-  try {
-    const all = await loadApprovedListings();
-    const listing = all.find((l) => l.listing_id === req.params["id"]);
-
-    if (!listing) {
-      res.status(404).json({ error: "Listing not found or not approved for public display." });
-      return;
-    }
-
-    res.json({ listing });
-  } catch (err) {
-    logger.error({ err }, "Error serving /api/listings/:id");
-    res.status(500).json({ error: "Unable to load listing details." });
-  }
-});
-
 // ── GET /api/listings/match ────────────────────────────────────
 // Simple matching endpoint for the Search page:
 // Takes basic criteria and returns 3–6 approved matches.
+// MUST come before /:id to avoid "match" being caught as an id param.
 
 router.get("/listings/match", async (req: Request, res: Response) => {
   try {
@@ -360,6 +342,25 @@ router.get("/listings/match", async (req: Request, res: Response) => {
   } catch (err) {
     logger.error({ err }, "Error serving /api/listings/match");
     res.status(500).json({ error: "Unable to match listings at this time." });
+  }
+});
+
+// ── GET /api/listings/:id ─────────────────────────────────────
+
+router.get("/listings/:id", async (req: Request, res: Response) => {
+  try {
+    const all = await loadApprovedListings();
+    const listing = all.find((l) => l.listing_id === req.params["id"]);
+
+    if (!listing) {
+      res.status(404).json({ error: "Listing not found or not approved for public display." });
+      return;
+    }
+
+    res.json({ listing });
+  } catch (err) {
+    logger.error({ err }, "Error serving /api/listings/:id");
+    res.status(500).json({ error: "Unable to load listing details." });
   }
 });
 
