@@ -16,7 +16,6 @@ export interface PipedrivePerson {
   name: string;
   email: Array<{ value: string; primary: boolean }>;
   phone: Array<{ value: string; primary: boolean }>;
-  org_name?: string;
 }
 
 export interface PipedriveDeal {
@@ -27,10 +26,19 @@ export interface PipedriveDeal {
   [key: string]: unknown;
 }
 
+export interface PipedriveLead {
+  id: string;
+  title: string;
+  person_id: number | null;
+  source_name: string;
+  [key: string]: unknown;
+}
+
 // ── helpers ────────────────────────────────────────────────────
 
 function url(path: string): string {
-  return `${BASE}${path}?api_token=${TOKEN}`;
+  const sep = path.includes("?") ? "&" : "?";
+  return `${BASE}${path}${sep}api_token=${TOKEN}`;
 }
 
 async function pipedriveFetch<T>(path: string, init?: RequestInit): Promise<T> {
@@ -81,7 +89,6 @@ export async function createPerson(data: {
   name: string;
   email: string;
   phone?: string;
-  org_name?: string;
 }): Promise<PipedrivePerson> {
   const result = await pipedriveFetch<PersonCreateResponse>("/persons", {
     method: "POST",
@@ -92,7 +99,7 @@ export async function createPerson(data: {
 
 export async function updatePerson(
   id: number,
-  data: { name?: string; email?: string; phone?: string; org_name?: string },
+  data: { name?: string; email?: string; phone?: string },
 ): Promise<PipedrivePerson> {
   const result = await pipedriveFetch<PersonCreateResponse>(`/persons/${id}`, {
     method: "PUT",
@@ -150,6 +157,37 @@ export async function addDealNote(dealId: number, content: string): Promise<numb
       deal_id: dealId,
       content,
       pinned_to_deal_flag: 0,
+    }),
+  });
+  return result.data.id;
+}
+
+// ── lead ops ───────────────────────────────────────────────────
+
+interface LeadCreateResponse {
+  success: boolean;
+  data: PipedriveLead;
+}
+
+export async function createLead(data: {
+  title: string;
+  person_id: number;
+  label_ids?: string[];
+  value?: { amount: number; currency: string };
+}): Promise<PipedriveLead> {
+  const result = await pipedriveFetch<LeadCreateResponse>("/leads", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  return result.data;
+}
+
+export async function addLeadNote(leadId: string, content: string): Promise<number> {
+  const result = await pipedriveFetch<NoteCreateResponse>("/notes", {
+    method: "POST",
+    body: JSON.stringify({
+      lead_id: leadId,
+      content,
     }),
   });
   return result.data.id;
