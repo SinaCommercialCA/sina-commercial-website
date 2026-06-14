@@ -78,8 +78,11 @@ const toLower = (s: string) => s.toLowerCase().trim();
 function parseCriteria(payload: Record<string, unknown>, name: string): LeadCriteria {
   const p = payload;
 
-  // Deal type
-  const searchPurpose = toLower(safeStr(p.searchPurpose));
+  // Deal type — comes as string or array of strings
+  const searchPurposeRaw = Array.isArray(p.searchPurpose)
+    ? (p.searchPurpose as string[]).join(",")
+    : safeStr(p.searchPurpose);
+  const searchPurpose = toLower(searchPurposeRaw);
   const dealType = searchPurpose.includes("lease") && searchPurpose.includes("buy")
     ? "both"
     : searchPurpose.includes("lease")
@@ -96,32 +99,37 @@ function parseCriteria(payload: Record<string, unknown>, name: string): LeadCrit
         .map(toLower)
         .filter(Boolean);
 
-  // Budget
+  // Budget — comes as string (parsed) or number
   const monthlyGross = safeNum(p.monthlyGross);
   const purchaseBudget = safeNum(p.purchaseBudget);
   const budget = monthlyGross ?? purchaseBudget;
   const budgetType = monthlyGross ? "monthly" : purchaseBudget ? "purchase" : null;
 
-  // Size
-  const sizeReq = toLower(safeStr(p.sizeRequirements));
-  // Try to parse ranges like "3000-5000", "5,000+", "under 10,000"
+  // Size — handle both object {min, max} and string formats
+  const sizeReqObj = p.sizeRequirements as { min?: number; max?: number } | undefined;
   let sizeMin: number | null = null;
   let sizeMax: number | null = null;
-  const rangeMatch = sizeReq.match(/(\d[\d,]*)\s*[-–to]+\s*(\d[\d,]*)/i);
-  const overMatch = sizeReq.match(/over\s+(\d[\d,]*)/i);
-  const underMatch = sizeReq.match(/under\s+(\d[\d,]*)/i);
-  const plusMatch = sizeReq.match(/(\d[\d,]*)\s*\+/);
-  if (rangeMatch) {
-    sizeMin = safeNum(rangeMatch[1].replace(/,/g, ""));
-    sizeMax = safeNum(rangeMatch[2].replace(/,/g, ""));
-  } else if (overMatch) {
-    sizeMin = safeNum(overMatch[1].replace(/,/g, ""));
-  } else if (underMatch) {
-    sizeMax = safeNum(underMatch[1].replace(/,/g, ""));
-  } else if (plusMatch) {
-    sizeMin = safeNum(plusMatch[1].replace(/,/g, ""));
+  if (sizeReqObj && typeof sizeReqObj === "object") {
+    sizeMin = safeNum(sizeReqObj.min);
+    sizeMax = safeNum(sizeReqObj.max);
   } else {
-    sizeMin = safeNum(sizeReq);
+    const sizeReq = toLower(safeStr(p.sizeRequirements));
+    const rangeMatch = sizeReq.match(/(\d[\d,]*)\s*[-–to]+\s*(\d[\d,]*)/i);
+    const overMatch = sizeReq.match(/over\s+(\d[\d,]*)/i);
+    const underMatch = sizeReq.match(/under\s+(\d[\d,]*)/i);
+    const plusMatch = sizeReq.match(/(\d[\d,]*)\s*\+/);
+    if (rangeMatch) {
+      sizeMin = safeNum(rangeMatch[1].replace(/,/g, ""));
+      sizeMax = safeNum(rangeMatch[2].replace(/,/g, ""));
+    } else if (overMatch) {
+      sizeMin = safeNum(overMatch[1].replace(/,/g, ""));
+    } else if (underMatch) {
+      sizeMax = safeNum(underMatch[1].replace(/,/g, ""));
+    } else if (plusMatch) {
+      sizeMin = safeNum(plusMatch[1].replace(/,/g, ""));
+    } else {
+      sizeMin = safeNum(sizeReq);
+    }
   }
 
   // Height
@@ -147,7 +155,9 @@ function parseCriteria(payload: Record<string, unknown>, name: string): LeadCrit
     name,
     deal_type: dealType,
     property_types: propertyTypes,
-    intended_use: toLower(safeStr(p.intendedUse)),
+    intended_use: Array.isArray(p.intendedUse)
+      ? (p.intendedUse as string[]).map(toLower).join(" ")
+      : toLower(safeStr(p.intendedUse)),
     locations,
     size_min: sizeMin,
     size_max: sizeMax,
