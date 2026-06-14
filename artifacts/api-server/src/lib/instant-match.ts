@@ -469,25 +469,113 @@ function formatPrice(listing: SheetRow): string {
   return "Price not listed";
 }
 
-// ── next action recommendation ─────────────────────────────────
+// ── triage labels ─────────────────────────────────────────────
 
-function recommendAction(topScore: number, publicCount: number, hasUrgentTimeline: boolean): string {
-  if (hasUrgentTimeline && topScore >= 75 && publicCount > 0) {
-    return "Urgent — push showing on top public match today";
+type MatchLabel = "🟢 Strong fit" | "🟡 Medium fit" | "🟠 Weak fit" | "⚪ Loose";
+type AccessLabel = "🌐 Public match" | "🔒 Internal match" | "⚠️ Needs verification";
+
+function classifyMatch(score: number): MatchLabel {
+  if (score >= 80) return "🟢 Strong fit";
+  if (score >= 65) return "🟡 Medium fit";
+  if (score >= 50) return "🟠 Weak fit";
+  return "⚪ Loose";
+}
+
+function accessLabel(m: ScoredListing): AccessLabel {
+  const status = toLower(safeStr(m.listing["status"] || ""));
+  if (status.includes("pend") || status.includes("verif") || status.includes("review")) {
+    return "⚠️ Needs verification";
   }
-  if (topScore >= 75 && publicCount > 0) {
-    return "Send curated matches to lead within 24h";
+  return m.public ? "🌐 Public match" : "🔒 Internal match";
+}
+
+function triageSummary(
+  matches: ScoredListing[],
+  leadScore: number,
+): { level: string; action: string; needsSinaReview: boolean; readyForOutreach: boolean } {
+  const topScore = matches[0]?.score ?? 0;
+  const publicMatches = matches.filter((m) => m.public && !accessLabel(m).includes("⚠️"));
+  const hasStrongPublic = publicMatches.some((m) => m.score >= 70);
+  const hasAnyPublic = publicMatches.length > 0;
+
+  const needsSinaReview = leadScore >= 75 || topScore >= 70;
+  const readyForOutreach = hasStrongPublic && !needsSinaReview;
+
+  let level: string;
+  let action: string;
+
+  if (leadScore >= 75 && topScore >= 80) {
+    level = "🔥 HIGH PRIORITY";
+    action = "Review immediately — strong lead + strong matches";
+  } else if (leadScore >= 75 && topScore >= 70) {
+    level = "⚠️ ACTION NEEDED";
+    action = "Strong lead with good matches — review today";
+  } else if (topScore >= 70 && hasStrongPublic) {
+    level = "📋 READY";
+    action = "Strong public matches exist — ready for Lili outreach";
+  } else if (topScore >= 65 && hasAnyPublic) {
+    level = "📝 PREPARE";
+    action = "Send top public match to lead; ask if criteria can expand";
+  } else if (topScore >= 65) {
+    level = "🔍 SOURCE";
+    action = "Only internal matches — may need to source off-market";
+  } else if (topScore >= 50) {
+    level = "🌱 NURTURE";
+    action = "Weak fits — nurture lead, ask to adjust criteria";
+  } else {
+    level = "⏸️ HOLD";
+    action = "No good matches — qualify lead further before spending time";
   }
-  if (topScore >= 65 && publicCount > 0) {
-    return "Send top match to lead; ask if criteria can expand";
+
+  return { level, action, needsSinaReview, readyForOutreach };
+}
+
+// ── draft email generator ──────────────────────────────────────
+
+function buildDraftEmail(
+  leadName: string,
+  publicMatches: ScoredListing[],
+  criteria: LeadCriteria,
+): string {
+  const firstName = leadName.split(" ")[0];
+  const lines: string[] = [];
+
+  lines.push(`Subject: Properties matching your ${criteria.deal_type} search — ${leadName}`);
+  lines.push("");
+  lines.push(`Hi ${firstName},`);
+  lines.push("");
+  lines.push(
+    `We found ${publicMatches.length} propert${publicMatches.length === 1 ? "y" : "ies"} that match${publicMatches.length === 1 ? "es" : ""} your search criteria for ${criteria.deal_type === "lease" ? "leasing" : "buying"} ${criteria.intended_use || criteria.property_types.join(", ") || "commercial real estate"} in ${criteria.locations.length ? criteria.locations.join(", ") : "the GTA"}.`,
+  );
+  lines.push("");
+
+  for (let i = 0; i < Math.min(publicMatches.length, 3); i++) {
+    const m = publicMatches[i];
+    const l = m.listing;
+    const listingId = safeStr(l["listing_id"]);
+    const title = safeStr(l["title"]);
+    const city = safeStr(l["municipality"]);
+    const area = safeStr(l["area"]);
+    const sqft = safeNum(l["total_sqft"] || l["sqft"]);
+    const use = safeStr(l["use_permitted"] || l["use_type"]);
+
+    lines.push(`━━━ Option ${i + 1} ━━━`);
+    if (title) lines.push(title);
+    lines.push(`📍 ${area || city} | ${sqft ? sqft.toLocaleString() + " SF" : ""} | ${formatPrice(l)}`);
+    lines.push(`${use}`);
+    if (m.why.length) lines.push(`✅ ${m.why[0]}`);
+    lines.push("");
   }
-  if (topScore >= 65) {
-    return "Review internal matches — may need to source off-market";
-  }
-  if (topScore >= 50) {
-    return "Nurture — ask lead if they can adjust budget, area, or size";
-  }
-  return "Low match confidence — qualify lead further before spending time";
+
+  lines.push("Would you like to schedule a showing for any of these, or would you like us to refine the search?");
+  lines.push("");
+  lines.push("Best regards,");
+  lines.push("Kevin");
+  lines.push("Sina Commercial Real Estate");
+  lines.push("kevin@sinacommercial.ca");
+  lines.push("sinacommercial.ca");
+
+  return lines.join("\n");
 }
 
 // ── build Pipedrive note ───────────────────────────────────────
@@ -496,10 +584,21 @@ function buildMatchNote(
   matches: ScoredListing[],
   leadName: string,
   criteria: LeadCriteria,
+  leadScore: number,
+  triage: ReturnType<typeof triageSummary>,
+  draftEmail?: string,
 ): string {
   const lines: string[] = [];
-  lines.push("🤖 Kevin Instant Match Results");
-  lines.push(`Lead: ${leadName}`);
+
+  // ── Header + triage banner
+  lines.push(`🤖 Kevin Instant Match Results — ${triage.level}`);
+  lines.push(`Action: ${triage.action}`);
+  if (triage.needsSinaReview) lines.push("📋 Review recommended — Sina");
+  if (triage.readyForOutreach) lines.push("✅ Ready for Lili outreach");
+  lines.push("");
+
+  // ── Lead info
+  lines.push(`Lead: ${leadName} | Score: ${leadScore}`);
   lines.push(`Type: ${criteria.deal_type.toUpperCase()} | Timeline: ${criteria.timeline || "Unknown"}`);
   if (criteria.intended_use) lines.push(`Use: ${criteria.intended_use}`);
   if (criteria.locations.length) lines.push(`Areas: ${criteria.locations.join(", ")}`);
@@ -511,6 +610,13 @@ function buildMatchNote(
   }
   lines.push("");
 
+  // ── Match summary
+  const publicCount = matches.filter((m) => m.public).length;
+  const internalCount = matches.length - publicCount;
+  lines.push(`Matches: ${matches.length} total | ${publicCount} 🌐 public | ${internalCount} 🔒 internal`);
+  lines.push("");
+
+  // ── Matches
   if (matches.length === 0) {
     lines.push("❌ No matches found in current inventory.");
     lines.push("");
@@ -523,8 +629,8 @@ function buildMatchNote(
     for (let i = 0; i < matches.length; i++) {
       const m = matches[i];
       const l = m.listing;
-      const badge = m.score >= 80 ? "🟢 HIGH" : m.score >= 65 ? "🟡 MEDIUM" : "🟠 LOW";
-      const publicBadge = m.public ? "🌐 Public" : "🔒 Internal";
+      const fitLabel = classifyMatch(m.score);
+      const al = accessLabel(m);
       const listingId = safeStr(l["listing_id"]);
       const title = safeStr(l["title"]);
       const city = safeStr(l["municipality"]);
@@ -532,7 +638,7 @@ function buildMatchNote(
       const sqft = safeNum(l["total_sqft"] || l["sqft"]);
       const use = safeStr(l["use_permitted"] || l["use_type"]);
 
-      lines.push(`━━━ #${i + 1}  Score: ${m.score} ${badge} ${publicBadge} ━━━`);
+      lines.push(`━━━ #${i + 1}  Score: ${m.score} ${fitLabel} ${al} ━━━`);
       lines.push(`ID: ${listingId} | ${title || `${use} in ${city}`}`);
       lines.push(`Location: ${area || city} | Sqft: ${sqft ? sqft.toLocaleString() : "?"} | Price: ${formatPrice(l)}`);
       lines.push(`Type: ${use || "N/A"} | Deal: ${toLower(safeStr(l["intent"] || l["lease_type"]))}`);
@@ -542,7 +648,17 @@ function buildMatchNote(
     }
   }
 
-  lines.push(`Action: ${recommendAction(matches[0]?.score ?? 0, matches.filter((m) => m.public).length, criteria.timeline.includes("immediately"))}`);
+  // ── Draft email (if applicable)
+  if (draftEmail) {
+    lines.push("────────────────────────────────────────");
+    lines.push("📧 Kevin Suggested Match Email Draft");
+    lines.push("────────────────────────────────────────");
+    lines.push("⚠️ DO NOT SEND — review and modify before sending");
+    lines.push("");
+    lines.push(draftEmail);
+    lines.push("");
+    lines.push("────────────────────────────────────────");
+  }
 
   return lines.join("\n");
 }
@@ -554,18 +670,29 @@ function buildMatchTelegram(
   leadName: string,
   submissionId: string,
   criteria: LeadCriteria,
+  leadScore: number,
+  triage: ReturnType<typeof triageSummary>,
 ): string {
   const topScore = matches[0]?.score ?? 0;
   const publicMatchCount = matches.filter((m) => m.public).length;
 
   const lines: string[] = [];
-  lines.push(`🔬 *Kevin matched this website lead*`);
+
+  // Banner
+  if (triage.needsSinaReview) {
+    lines.push(`🔬 *Kevin Match — ⚠️ Review Recommended*`);
+  } else if (triage.readyForOutreach) {
+    lines.push(`🔬 *Kevin Match — ✅ Ready for Outreach*`);
+  } else {
+    lines.push(`🔬 *Kevin matched this website lead*`);
+  }
+
   lines.push(`━━━━━━━━━━━━━━━━━━`);
-  lines.push(`*${leadName}* | 🆔 \`${submissionId}\``);
+  lines.push(`*${leadName}* | Lead Score: ${leadScore} | 🆔 \`${submissionId}\``);
   lines.push(`${criteria.deal_type.toUpperCase()} | ${criteria.intended_use || "No use specified"}`);
   if (criteria.locations.length) lines.push(`Areas: ${criteria.locations.join(", ")}`);
   if (criteria.budget) lines.push(`Budget: $${criteria.budget.toLocaleString()}${criteria.budget_type === "monthly" ? "/mo" : ""}`);
-  lines.push(`Top score: ${topScore}/100 | Public matches: ${publicMatchCount}`);
+  lines.push(`Top match: ${topScore}/100 | 🌐 ${publicMatchCount} public`);
   lines.push("");
 
   if (matches.length === 0) {
@@ -578,18 +705,19 @@ function buildMatchTelegram(
       const listingId = safeStr(l["listing_id"]);
       const title = safeStr(l["title"]);
       const city = safeStr(l["municipality"]);
-      const badge = m.public ? "🌐" : "🔒";
-      lines.push(`${badge} *${listingId}* — ${title || city} | ${formatPrice(l)} | Score: ${m.score}`);
+      const fitLabel = classifyMatch(m.score);
+      const al = accessLabel(m);
+      const badge = al.includes("⚠️") ? "⚠️" : m.public ? "🌐" : "🔒";
+      lines.push(`${badge} *${listingId}* — ${title || city} | ${formatPrice(l)} | ${fitLabel} (${m.score})`);
       if (m.why.length) lines.push(`   ✅ ${m.why[0]}`);
       if (m.gaps.length) lines.push(`   ⚠️ ${m.gaps[0]}`);
     }
   }
 
-  const action = recommendAction(topScore, publicMatchCount, criteria.timeline.includes("immediately"));
-  if (action) {
-    lines.push("");
-    lines.push(`📋 ${action}`);
-  }
+  lines.push("");
+  lines.push(`📋 ${triage.action}`);
+  if (triage.needsSinaReview) lines.push("⚠️ Sina — please review this lead");
+  if (triage.readyForOutreach) lines.push("✅ Ready for Lili to send curated matches");
 
   return lines.join("\n");
 }
@@ -601,6 +729,7 @@ export async function runInstantMatch(
   payload: Record<string, unknown>,
   leadName: string,
   leadId: number,
+  leadScore: number = 0,
 ): Promise<void> {
   const startTime = Date.now();
 
@@ -643,21 +772,55 @@ export async function runInstantMatch(
       ? top5
       : scored.filter((s) => s.score >= 30).slice(0, 3);
 
+    // Triage
+    const triage = triageSummary(finalMatches, leadScore);
+
+    // Draft email if strong public matches exist (score ≥ 70)
+    const strongPublic = finalMatches.filter(
+      (m) => m.public && !accessLabel(m).includes("⚠️") && m.score >= 70,
+    );
+    const draftEmail = strongPublic.length > 0
+      ? buildDraftEmail(leadName, strongPublic, criteria)
+      : undefined;
+
     logger.info({
       submissionId,
       totalScored: scored.length,
       topScore: finalMatches[0]?.score ?? 0,
       matchCount: finalMatches.length,
+      needsReview: triage.needsSinaReview,
+      readyForOutreach: triage.readyForOutreach,
+      hasDraftEmail: !!draftEmail,
       durationMs: Date.now() - startTime,
     }, "Instant match complete");
 
-    // Build Pipedrive note
-    const note = buildMatchNote(finalMatches, leadName, criteria);
+    const { addLeadNote, createLeadActivity } = await import("./pipedrive");
 
-    // Send Telegram (use notifySina for the match update)
+    // ── 1. Pipedrive note (match results + draft email)
+    const note = buildMatchNote(finalMatches, leadName, criteria, leadScore, triage, draftEmail);
+    await addLeadNote(String(leadId), note);
+
+    // ── 2. Pipedrive activity (if review needed)
+    if (triage.needsSinaReview) {
+      try {
+        const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+        await createLeadActivity({
+          leadId: String(leadId),
+          subject: `🔬 Review Instant Match — ${leadName} (Score ${leadScore})`,
+          type: "task",
+          note: `${triage.level}\n${triage.action}\nTop match: ${finalMatches[0]?.score ?? 0}/100\nPublic matches: ${finalMatches.filter((m) => m.public).length}`,
+          dueDate: today,
+        });
+        logger.info({ submissionId, leadId }, "Instant match activity created for review");
+      } catch (actErr) {
+        logger.error({ err: actErr, submissionId }, "Failed to create review activity");
+      }
+    }
+
+    // ── 3. Telegram match notification
     if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
       try {
-        const telegramText = buildMatchTelegram(finalMatches, leadName, submissionId, criteria);
+        const telegramText = buildMatchTelegram(finalMatches, leadName, submissionId, criteria, leadScore, triage);
         await fetch(
           `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
           {
@@ -677,15 +840,12 @@ export async function runInstantMatch(
       }
     }
 
-    // Add note to Pipedrive lead
-    const { addLeadNote } = await import("./pipedrive");
-    await addLeadNote(leadId, note);
-
     logger.info({
       submissionId,
       leadId,
       matchCount: finalMatches.length,
       topScore: finalMatches[0]?.score ?? 0,
+      triage: triage.level,
       durationMs: Date.now() - startTime,
     }, "Instant match saved to Pipedrive");
 

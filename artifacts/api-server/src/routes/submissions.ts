@@ -585,6 +585,7 @@ router.post("/submissions", async (req: Request, res: Response) => {
         sub.payload as Record<string, unknown>,
         `${sub.contact.firstName} ${sub.contact.lastName}`.trim(),
         lead.id,
+        score,
       ).catch((matchErr) => {
         logger.error({ err: matchErr, submissionId }, "Instant match failed");
       });

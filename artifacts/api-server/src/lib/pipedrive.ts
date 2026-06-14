@@ -193,3 +193,31 @@ export async function addLeadNote(leadId: string, content: string): Promise<numb
   });
   return result.data.id;
 }
+
+// ── activities ─────────────────────────────────────────────────
+
+interface ActivityCreateResponse {
+  success: boolean;
+  data: { id: number };
+}
+
+export async function createLeadActivity(params: {
+  leadId: string;
+  subject: string;
+  type: string;
+  note: string;
+  dueDate: string; // YYYY-MM-DD
+}): Promise<number> {
+  const result = await pipedriveFetch<ActivityCreateResponse>("/activities", {
+    method: "POST",
+    body: JSON.stringify({
+      lead_id: params.leadId,
+      subject: params.subject,
+      type: params.type,
+      note: params.note,
+      due_date: params.dueDate,
+      done: 0,
+    }),
+  });
+  return result.data.id;
+}
