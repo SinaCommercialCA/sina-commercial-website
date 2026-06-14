@@ -1,11 +1,15 @@
 /**
- * Google Sheets append — minimal JWT-based access token + REST API.
+ * Google Sheets read + append — minimal JWT-based access token + REST API.
  * Zero additional npm dependencies. Uses Node built-in crypto.
  */
 
 import crypto from "node:crypto";
 import { env } from "./env";
 import { logger } from "./logger";
+
+export interface SheetRow {
+  [column: string]: string | number | null;
+}
 
 interface ServiceAccount {
   client_email: string;
@@ -122,6 +126,49 @@ export async function appendRow(
   }
 
   logger.info({ tabName, count: values.length }, "Sheets row appended");
+}
+
+/**
+ * Read all rows from a sheet tab. First row is used as header.
+ * Returns an array of objects keyed by column header.
+ */
+export async function readSheet(tabName: string): Promise<SheetRow[]> {
+  const token = await getAccessToken();
+  const sheetId = env.GOOGLE_SHEET_ID;
+  const range = encodeURIComponent(`'${tabName}'`);
+
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}`;
+
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text();
+    logger.error({ status: res.status, body: errBody, tabName }, "Google Sheets read failed");
+    throw new Error(`Sheets read error: ${res.status}`);
+  }
+
+  const data = (await res.json()) as {
+    values?: (string | number | null)[][];
+  };
+
+  const rows = data.values || [];
+  if (rows.length === 0) return [];
+
+  const headers = rows[0].map((h) => String(h ?? "").trim().toLowerCase());
+  const result: SheetRow[] = [];
+
+  for (let i = 1; i < rows.length; i++) {
+    const row: SheetRow = {};
+    for (let j = 0; j < headers.length; j++) {
+      row[headers[j]] = rows[i]?.[j] ?? null;
+    }
+    result.push(row);
+  }
+
+  logger.info({ tabName, rows: result.length }, "Sheets read complete");
+  return result;
 }
 
 // ── lazy fs import (only used if SA JSON is a file path) ───────

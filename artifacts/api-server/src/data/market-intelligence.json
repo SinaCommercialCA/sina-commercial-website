@@ -1,0 +1,148 @@
+{
+  "last_updated": "2026-06-14",
+  "sections": [
+    {
+      "id": "industrial-snapshot",
+      "title": "GTA Industrial Snapshot",
+      "summary": "GTA industrial vacancy remains historically tight in established nodes. Small-bay units under 10,000 SF continue to experience acute supply shortages.",
+      "market_area": "Greater Toronto Area",
+      "property_type": "Industrial",
+      "confidence_level": "High",
+      "source_note": "Based on active listings, broker feedback, and recent transactions.",
+      "approved_for_web": true,
+      "items": [
+        {
+          "label": "Vacancy & Availability",
+          "content": "Prime industrial nodes including North York, Etobicoke, and east Toronto corridors show sub-2% vacancy. Qualified tenants compete on multiple offers for quality small-bay units."
+        },
+        {
+          "label": "Rental Growth",
+          "content": "Net rental rates for quality industrial product have appreciated substantially since 2020. Landlords in prime corridors maintain firm positions for units with clear heights above 18 feet."
+        },
+        {
+          "label": "Logistics & E-commerce",
+          "content": "E-commerce fulfillment, last-mile logistics, and food distribution continue to drive absorption. 53-foot trailer access and large shipping courts are non-negotiable for logistics users."
+        },
+        {
+          "label": "Specialized Industrial",
+          "content": "Automotive, food production, cold storage, and cannabis-approved facilities remain in short supply. Businesses with specialized requirements are advised to engage early."
+        }
+      ],
+      "stats": [
+        { "value": "Sub-2%", "label": "Vacancy — Prime Nodes" },
+        { "value": "22'+", "label": "Clear Height in Demand" },
+        { "value": "53'", "label": "Trailer Access Standard" },
+        { "value": "400A+", "label": "Power Demand Increasing" }
+      ]
+    },
+    {
+      "id": "retail-snapshot",
+      "title": "Retail Leasing Snapshot",
+      "summary": "GTA retail leasing shows mixed performance — established plazas remain stable while street-front retail faces continued adjustment.",
+      "market_area": "Greater Toronto Area",
+      "property_type": "Retail",
+      "confidence_level": "Medium–High",
+      "source_note": "Based on active leasing activity and market discussions.",
+      "approved_for_web": true,
+      "items": [
+        {
+          "label": "Plaza Stability",
+          "content": "Multi-tenant retail plazas with grocery or service anchors remain stable. Landlords are prioritizing tenant mix and long-term leases over aggressive rental growth."
+        },
+        {
+          "label": "Restaurant & Food",
+          "content": "Quick-service restaurants and food-service concepts continue to expand. Turnkey restaurant spaces with existing equipment and ventilation are leasing quickly."
+        },
+        {
+          "label": "Service Retail",
+          "content": "Medical, dental, pharmacy, and fitness operators remain active. Retail spaces with ample parking and street visibility in growing residential areas see consistent demand."
+        }
+      ]
+    },
+    {
+      "id": "investment-insights",
+      "title": "Investment & Owner-User Insights",
+      "summary": "GTA commercial investment activity remains selective — quality assets in core corridors attract multiple bids while secondary product requires pricing discipline.",
+      "market_area": "Greater Toronto Area",
+      "property_type": "Investment",
+      "confidence_level": "Medium",
+      "source_note": "Based on recent transaction trends and market observations.",
+      "approved_for_web": true,
+      "items": [
+        {
+          "label": "Cap Rate Environment",
+          "content": "Cap rates for quality industrial and retail product have adjusted from 2022 lows. Buyers with strong cash positions and patient capital are well-positioned."
+        },
+        {
+          "label": "Owner-User Demand",
+          "content": "Business owners seeking to control their real estate continue to drive demand in the small-to-mid industrial and retail condo segments."
+        },
+        {
+          "label": "Value-Add Opportunities",
+          "content": "Properties with vacancy, below-market rents, or deferred maintenance offer repositioning potential for informed investors."
+        }
+      ]
+    },
+    {
+      "id": "automotive-watch",
+      "title": "Automotive Property Watch",
+      "summary": "Automotive commercial properties — mechanic shops, body shops, tire shops, car washes, and dealerships — remain one of the tightest GTA segments.",
+      "market_area": "Toronto, Vaughan, Scarborough",
+      "property_type": "Automotive",
+      "confidence_level": "High",
+      "source_note": "Based on active demand patterns and limited supply.",
+      "approved_for_web": true,
+      "items": [
+        {
+          "label": "Supply Constraints",
+          "content": "Mechanic and body shop spaces — especially with spray booths, floor drains, and adequate power — are in critical shortage. Most quality units lease before reaching public listings."
+        },
+        {
+          "label": "Car Wash Demand",
+          "content": "Car wash properties, both self-serve and tunnel, continue to attract investor and operator interest across the GTA."
+        },
+        {
+          "label": "Tire Shop Activity",
+          "content": "Seasonal tire shop demand remains consistent. Units with open bays and high-traffic exposure in Scarborough and North York see quick absorption."
+        }
+      ]
+    },
+    {
+      "id": "opportunity-corridors",
+      "title": "Opportunity Corridors",
+      "summary": "Infrastructure investment, intensification, and employment zone protections are shaping long-term value in key GTA nodes.",
+      "market_area": "Greater Toronto Area",
+      "property_type": "Multi-Type",
+      "confidence_level": "Medium–High",
+      "source_note": "Based on corridor analysis and transaction patterns.",
+      "approved_for_web": true,
+      "items": [
+        {
+          "label": "Highway 400 / Vaughan",
+          "content": "Strong industrial activity driven by logistics, automotive, and manufacturing. Proximity to major interchanges creates multi-generational investment appeal."
+        },
+        {
+          "label": "Dufferin / North York",
+          "content": "Established industrial strip with dense small-bay product. Owner-users prize the urban infill location and transit proximity."
+        },
+        {
+          "label": "Highway 401 / Mississauga",
+          "content": "Airport proximity and 401 access attract distribution, logistics, and advanced manufacturing. Some of the highest per-SF rents in the GTA."
+        },
+        {
+          "label": "Scarborough Industrial Nodes",
+          "content": "Underrated by many investors. Strong tenant demand across automotive, food, and contractor sectors. Relative value compared to western GTA."
+        },
+        {
+          "label": "Markham / Stouffville Corridor",
+          "content": "Growing tech and light manufacturing corridor. Quality industrial condo product offers owner-user opportunities tied to York Region growth."
+        }
+      ]
+    }
+  ],
+  "weekly_notes": {
+    "title": "Weekly Commercial Notes — June 13, 2026",
+    "content": "Active search continues for industrial and automotive opportunities in Toronto, North York, and Scarborough. Off-market sourcing for gas stations within 1 hour of Milton remains a priority. Investment buyer demand for multi-tenant industrial and retail plazas is steady.",
+    "approved_for_web": true
+  }
+}

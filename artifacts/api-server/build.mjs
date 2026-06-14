@@ -118,6 +118,14 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     `,
     },
   });
+
+  // Copy data directory into dist for runtime access
+  const srcDataDir = path.resolve(artifactDir, "src", "data");
+  const dstDataDir = path.resolve(distDir, "data");
+  try {
+    await (await import("node:fs/promises")).cp(srcDataDir, dstDataDir, { recursive: true });
+    console.log("  Copied data/ to dist/");
+  } catch { /* ok if no data dir */ }
 }
 
 buildAll().catch((err) => {

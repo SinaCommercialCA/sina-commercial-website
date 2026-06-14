@@ -7,12 +7,7 @@ import { Building2, TrendingUp, Search, ShieldCheck, MapPin, Briefcase, ChevronR
 import headshot from "@assets/photo_2026-06-05_01-52-08_1780720012134.jpg";
 
 import heroBg from "@/assets/hero-bg.png";
-import propInd1 from "@/assets/property-industrial-1.png";
-import propRet1 from "@/assets/property-retail-1.png";
-import propInd2 from "@/assets/property-industrial-2.png";
-import propAuto from "@/assets/property-auto.png";
-import propLog from "@/assets/property-logistics.png";
-import propInv from "@/assets/property-investment.png";
+import type { PublicListing, MarketIntelSection } from "@/lib/api-types";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -29,14 +24,36 @@ export default function Home() {
     document.title = "Sina Commercial | GTA Commercial Real Estate Advisory";
   }, []);
 
-  const featuredOpportunities = [
-    { title: "Industrial Warehouse Opportunity", location: "North York", type: "Industrial Lease", size: "7,700 SF", image: propInd1 },
-    { title: "Retail Plaza Acquisition", location: "Scarborough", type: "Investment / Retail", size: "22,000 SF", image: propRet1 },
-    { title: "Small-Bay Industrial Condo", location: "Vaughan", type: "Industrial Sale", size: "3,500 SF", image: propInd2 },
-    { title: "Auto-Related Commercial Facility", location: "Toronto", type: "Automotive / Industrial", size: "3,000 SF", image: propAuto },
-    { title: "Logistics / Distribution Facility", location: "Mississauga", type: "Industrial Lease", size: "18,000 SF", image: propLog },
-    { title: "Investment Property Advisory", location: "Richmond Hill", type: "Commercial Investment", size: "$9.2M", image: propInv },
-  ];
+  const [featured, setFeatured] = React.useState<PublicListing[]>([]);
+  const [intelSections, setIntelSections] = React.useState<MarketIntelSection[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    async function load() {
+      try {
+        const [fRes, iRes] = await Promise.all([
+          fetch("/api/listings/featured"),
+          fetch("/api/market-intelligence"),
+        ]);
+        if (fRes.ok) {
+          const data = await fRes.json();
+          setFeatured((data as { listings: PublicListing[] }).listings || []);
+        }
+        if (iRes.ok) {
+          const data = await iRes.json();
+          setIntelSections((data as { sections: MarketIntelSection[] }).sections?.slice(0, 3) || []);
+        }
+      } catch {
+        // Graceful fallback — show static content below
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
+
+  const hasDynamicFeatured = featured.length > 0;
+  const hasDynamicIntel = intelSections.length > 0;
 
   return (
     <div className="w-full overflow-hidden">
@@ -175,33 +192,73 @@ export default function Home() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            {featuredOpportunities.map((opp, idx) => (
-              <Card key={idx} data-testid={`card-opportunity-${idx}`} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors sc-card-lift">
-                <div className="relative h-52 overflow-hidden">
-                  <div className="absolute top-3 left-3 z-10 bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-secondary rounded-sm">
-                    {opp.type}
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {[0, 1, 2].map(i => (
+                <Card key={i} className="bg-background border-white/5 animate-pulse">
+                  <div className="h-52 bg-white/5" />
+                  <CardContent className="p-5">
+                    <div className="h-5 bg-white/10 rounded w-3/4 mb-3" />
+                    <div className="h-4 bg-white/5 rounded w-1/2 mb-4" />
+                    <div className="h-8 bg-white/5 rounded w-full" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : hasDynamicFeatured ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {featured.map((listing) => (
+                <Card key={listing.listing_id} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors sc-card-lift">
+                  <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    <div className="absolute top-3 left-3 z-10 bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-secondary rounded-sm">
+                      {listing.deal_type}
+                    </div>
+                    <Building2 className="w-16 h-16 text-white/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                   </div>
-                  <img
-                    src={opp.image}
-                    alt={opp.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                </div>
-                <CardContent className="p-5 relative z-10 -mt-6">
-                  <h3 className="font-serif text-lg text-white mb-3 line-clamp-2">{opp.title}</h3>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                    <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-secondary shrink-0" /> {opp.location}</span>
-                    <span className="font-medium text-white">{opp.size}</span>
+                  <CardContent className="p-5 relative z-10 -mt-6">
+                    <h3 className="font-serif text-lg text-white mb-3 line-clamp-2">{listing.title}</h3>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                      <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-secondary shrink-0" /> {listing.city}</span>
+                      <span className="font-medium text-white">{listing.size_range || `${listing.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
+                    </div>
+                    <Button asChild variant="outline" size="sm" className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs">
+                      <Link href="/contact">Request Info</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            /* Static fallback — shown when no approved listings exist yet */
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {[
+                { title: "Industrial Warehouse Opportunity", location: "North York", type: "Industrial Lease", size: "7,700 SF" },
+                { title: "Retail Plaza Acquisition", location: "Scarborough", type: "Investment / Retail", size: "22,000 SF" },
+                { title: "Small-Bay Industrial Condo", location: "Vaughan", type: "Industrial Sale", size: "3,500 SF" },
+              ].map((opp, idx) => (
+                <Card key={idx} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors sc-card-lift">
+                  <div className="relative h-52 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    <div className="absolute top-3 left-3 z-10 bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-secondary rounded-sm">
+                      {opp.type}
+                    </div>
+                    <Building2 className="w-16 h-16 text-white/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                   </div>
-                  <Button asChild variant="outline" size="sm" className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs">
-                    <Link href="/contact">Request Info</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  <CardContent className="p-5 relative z-10 -mt-6">
+                    <h3 className="font-serif text-lg text-white mb-3 line-clamp-2">{opp.title}</h3>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                      <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-secondary shrink-0" /> {opp.location}</span>
+                      <span className="font-medium text-white">{opp.size}</span>
+                    </div>
+                    <Button asChild variant="outline" size="sm" className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs">
+                      <Link href="/contact">Request Info</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
 
           <div className="text-center text-xs text-muted-foreground border-t border-white/10 pt-6">
             Some opportunities may be confidential or off-market. Submit your criteria to receive suitable matches.
@@ -256,19 +313,31 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: "Industrial Market Trends", desc: "Vacancy, rental growth, logistics demand, and small-bay industrial activity." },
-              { title: "Emerging Investment Corridors", desc: "Infrastructure, zoning, redevelopment, and commercial growth patterns across the GTA." },
-              { title: "Off-Market Opportunity Brief", desc: "Confidential buyer demand, private seller activity, and strategic acquisition themes." }
-            ].map((card, i) => (
-              <div key={i} className="p-6 border-l-2 border-secondary bg-background hover:bg-background/80 transition-colors">
-                <h3 className="font-serif text-lg text-white mb-3">{card.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-5">{card.desc}</p>
-                <Link href="/market-intelligence" className="text-secondary text-xs font-medium flex items-center hover:text-white transition-colors">
-                  Read Brief <ChevronRight className="ml-1 w-4 h-4" />
-                </Link>
-              </div>
-            ))}
+            {hasDynamicIntel ? (
+              intelSections.map((section) => (
+                <div key={section.id} className="p-6 border-l-2 border-secondary bg-background hover:bg-background/80 transition-colors">
+                  <h3 className="font-serif text-lg text-white mb-3">{section.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">{section.summary}</p>
+                  <Link href="/market-intelligence" className="text-secondary text-xs font-medium flex items-center hover:text-white transition-colors">
+                    Read Brief <ChevronRight className="ml-1 w-4 h-4" />
+                  </Link>
+                </div>
+              ))
+            ) : (
+              [
+                { title: "Industrial Market Trends", desc: "Vacancy, rental growth, logistics demand, and small-bay industrial activity." },
+                { title: "Emerging Investment Corridors", desc: "Infrastructure, zoning, redevelopment, and commercial growth patterns across the GTA." },
+                { title: "Off-Market Opportunity Brief", desc: "Confidential buyer demand, private seller activity, and strategic acquisition themes." }
+              ].map((card, i) => (
+                <div key={i} className="p-6 border-l-2 border-secondary bg-background hover:bg-background/80 transition-colors">
+                  <h3 className="font-serif text-lg text-white mb-3">{card.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">{card.desc}</p>
+                  <Link href="/market-intelligence" className="text-secondary text-xs font-medium flex items-center hover:text-white transition-colors">
+                    Read Brief <ChevronRight className="ml-1 w-4 h-4" />
+                  </Link>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -322,7 +391,7 @@ export default function Home() {
               { quote: "The level of market intelligence and advisory exceeded our expectations.", author: "Commercial Property Investor" }
             ].map((t, i) => (
               <div key={i} className="flex flex-col">
-                <div className="text-primary text-5xl font-serif leading-none opacity-40 mb-3">"</div>
+                <div className="text-primary text-5xl font-serif leading-none opacity-40 mb-3">&ldquo;</div>
                 <p className="text-base text-white/85 italic leading-relaxed mb-6 flex-1">{t.quote}</p>
                 <div className="text-xs font-medium text-secondary uppercase tracking-wider">— {t.author}</div>
               </div>

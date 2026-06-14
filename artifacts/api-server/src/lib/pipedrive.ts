@@ -16,6 +16,7 @@ export interface PipedrivePerson {
   name: string;
   email: Array<{ value: string; primary: boolean }>;
   phone: Array<{ value: string; primary: boolean }>;
+  org_name?: string;
 }
 
 export interface PipedriveDeal {

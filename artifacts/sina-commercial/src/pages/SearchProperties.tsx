@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info } from "lucide-react";
+import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info, MapPin, Building2 } from "lucide-react";
+import type { ListingMatch } from "@/lib/api-types";
 
 /* ─── helpers ──────────────────────────────────────────────────────────────── */
 function CB({
@@ -170,6 +171,31 @@ function QuickSearch() {
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
+  const [matches, setMatches] = useState<ListingMatch[]>([]);
+  const [searchingMatches, setSearchingMatches] = useState(false);
+
+  // Auto-fetch matches when enough criteria are provided
+  const fetchMatches = React.useCallback(async () => {
+    if (!qs.mode && !qs.type && !qs.area) { setMatches([]); return; }
+    setSearchingMatches(true);
+    try {
+      const params = new URLSearchParams();
+      if (qs.mode) params.set("deal_type", qs.mode);
+      if (qs.type) params.set("property_type", qs.type);
+      if (qs.area) params.set("city", qs.area);
+      const res = await fetch(`/api/listings/match?${params.toString()}`);
+      if (res.ok) {
+        const data = await res.json();
+        setMatches((data as { matches: ListingMatch[] }).matches || []);
+      }
+    } catch {
+      setMatches([]);
+    } finally {
+      setSearchingMatches(false);
+    }
+  }, [qs.mode, qs.type, qs.area]);
+
+  React.useEffect(() => { fetchMatches(); }, [fetchMatches]);
 
   const handleQuickSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -260,6 +286,46 @@ function QuickSearch() {
           Unable to submit. Please try again or email sina@sinacommercial.ca.
         </div>
       )}
+      {/* SAMPLE MATCH RESULTS */}
+      {matches.length > 0 && (
+        <div className="mt-6 pt-6 border-t border-white/10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-8 bg-secondary" />
+            <h3 className="font-serif text-base text-white">Sample Matching Opportunities</h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {matches.slice(0, 3).map((match) => (
+              <div key={match.listing_id} className="p-4 border border-white/10 bg-background hover:border-secondary/30 transition-colors rounded-sm">
+                <h4 className="font-serif text-sm text-white mb-2 line-clamp-2">{match.title}</h4>
+                <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                  <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-secondary" /> {match.city}</span>
+                  <span>{match.size_range || `${match.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
+                </div>
+                {match.price_or_rent_display && (
+                  <p className="text-xs text-secondary mb-1">{match.price_or_rent_display}</p>
+                )}
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-[10px] px-2 py-0.5 bg-secondary/10 text-secondary rounded-sm">{match.deal_type}</span>
+                  <span className="text-[10px] text-muted-foreground">{match.property_type}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground mt-3">
+            {matches.length} matching listing{matches.length !== 1 ? "s" : ""} found. Submit your details above to receive the full list.
+          </p>
+        </div>
+      )}
+
+      {searchingMatches && !matches.length && (qs.mode || qs.type || qs.area) && (
+        <div className="mt-6 pt-6 border-t border-white/10">
+          <div className="flex items-center gap-3 mb-4">
+            <Building2 className="w-4 h-4 text-muted-foreground animate-pulse" />
+            <span className="text-muted-foreground text-sm">Searching matching opportunities...</span>
+          </div>
+        </div>
+      )}
+
       <Button type="submit" disabled={submitting} data-testid="btn-quick-search"
         className="w-full bg-secondary text-background hover:bg-secondary/90 rounded-sm h-11 font-semibold text-sm disabled:opacity-60">
         {submitting ? "Submitting..." : "GET MATCHING OPPORTUNITIES"}

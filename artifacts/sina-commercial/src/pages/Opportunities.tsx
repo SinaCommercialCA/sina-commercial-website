@@ -1,19 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, ArrowRight } from "lucide-react";
-
-import propInd1 from "@/assets/property-industrial-1.png";
-import propRet1 from "@/assets/property-retail-1.png";
-import propInd2 from "@/assets/property-industrial-2.png";
-import propAuto from "@/assets/property-auto.png";
-import propLog from "@/assets/property-logistics.png";
-import propInv from "@/assets/property-investment.png";
-import marketIntel from "@/assets/market-intel.png";
-import offMarket from "@/assets/off-market.png";
-import businessProp from "@/assets/business-property.png";
+import { MapPin, ArrowRight, Building2, Loader2 } from "lucide-react";
+import type { PublicListing } from "@/lib/api-types";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -25,40 +16,47 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
-const ALL_OPPORTUNITIES = [
-  { title: "Industrial Warehouse Opportunity", location: "North York", type: "Industrial Lease", size: "7,700 SF", category: "Industrial", image: propInd1 },
-  { title: "Retail Plaza Acquisition", location: "Scarborough", type: "Investment / Retail", size: "22,000 SF", category: "Retail", image: propRet1 },
-  { title: "Small-Bay Industrial Condo", location: "Vaughan", type: "Industrial Sale", size: "3,500 SF", category: "Industrial", image: propInd2 },
-  { title: "Auto-Related Commercial Facility", location: "Toronto", type: "Automotive / Industrial", size: "3,000 SF", category: "Automotive", image: propAuto },
-  { title: "Logistics / Distribution Facility", location: "Mississauga", type: "Industrial Lease", size: "18,000 SF", category: "Industrial", image: propLog },
-  { title: "Investment Property Advisory", location: "Richmond Hill", type: "Commercial Investment", size: "$9.2M", category: "Investment", image: propInv },
-  { title: "GTA Investment Corridor Opportunity", location: "Markham", type: "Investment / Office", size: "12,000 SF", category: "Investment", image: marketIntel },
-  { title: "Off-Market Acquisition — Retail Strip", location: "Etobicoke", type: "Off-Market Retail", size: "8,500 SF", category: "Off-Market", image: offMarket },
-  { title: "Business With Property — Food Service", location: "Brampton", type: "Business With Property", size: "3,200 SF", category: "Business With Property", image: businessProp },
-];
-
 const FILTER_CATEGORIES = [
   "All",
   "Industrial",
-  "Retail",
-  "Office",
+  "Commercial / Retail",
   "Investment",
   "Automotive",
-  "Land / Redevelopment",
-  "Business With Property",
+  "Business with Property",
   "Off-Market",
 ];
 
 export default function Opportunities() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [listings, setListings] = useState<PublicListing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Commercial Real Estate Opportunities GTA | Sina Commercial";
   }, []);
 
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      setError(false);
+      try {
+        const res = await fetch("/api/listings");
+        if (!res.ok) throw new Error("Failed");
+        const data = await res.json();
+        setListings((data as { listings: PublicListing[] }).listings || []);
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
+
   const filtered = activeCategory === "All"
-    ? ALL_OPPORTUNITIES
-    : ALL_OPPORTUNITIES.filter(o => o.category === activeCategory);
+    ? listings
+    : listings.filter(l => l.property_type.toLowerCase() === activeCategory.toLowerCase());
 
   return (
     <div className="w-full overflow-hidden">
@@ -88,7 +86,7 @@ export default function Opportunities() {
             {FILTER_CATEGORIES.map(cat => (
               <button
                 key={cat}
-                data-testid={`filter-${cat.toLowerCase().replace(/\s/g, "-")}`}
+                data-testid={`filter-${cat.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-5 py-2 text-sm font-medium rounded-sm border transition-all ${
                   activeCategory === cat
@@ -104,52 +102,82 @@ export default function Opportunities() {
       </section>
 
       {/* OPPORTUNITY CARDS */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background min-h-[50vh]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            key={activeCategory}
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {filtered.length === 0 ? (
-              <div className="col-span-3 text-center py-20 text-muted-foreground">
-                No opportunities currently listed in this category. Contact Sina for private access.
-              </div>
-            ) : filtered.map((opp, idx) => (
-              <motion.div key={idx} variants={fadeInUp}>
-                <Card className="bg-card border-white/5 overflow-hidden group hover:border-secondary/50 transition-all duration-300 h-full sc-card-lift">
-                  <div className="relative h-56 overflow-hidden">
-                    <div className="absolute top-4 left-4 z-10 bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-secondary rounded-sm">
-                      {opp.type}
-                    </div>
-                    <img
-                      src={opp.image}
-                      alt={opp.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                  </div>
-                  <CardContent className="p-6 -mt-6 relative z-10 flex flex-col h-full">
-                    <h3 className="font-serif text-xl text-white mb-3 line-clamp-2">{opp.title}</h3>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-6 flex-1">
-                      <span className="flex items-center"><MapPin className="w-4 h-4 mr-1 text-secondary" /> {opp.location}</span>
-                      <span className="font-medium text-white">{opp.size}</span>
-                    </div>
-                    <Button
-                      asChild
-                      variant="outline"
-                      data-testid={`btn-request-info-${idx}`}
-                      className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all"
-                    >
-                      <Link href="/contact">Request Info</Link>
-                    </Button>
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[0, 1, 2].map(i => (
+                <Card key={i} className="bg-card border-white/5 animate-pulse">
+                  <div className="h-56 bg-white/5" />
+                  <CardContent className="p-6">
+                    <div className="h-6 bg-white/10 rounded w-3/4 mb-3" />
+                    <div className="h-4 bg-white/5 rounded w-1/2 mb-4" />
+                    <div className="h-10 bg-white/5 rounded w-full" />
                   </CardContent>
                 </Card>
-              </motion.div>
-            ))}
-          </motion.div>
+              ))}
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <Loader2 className="w-10 h-10 text-muted-foreground mx-auto mb-4 animate-spin" />
+              <p className="text-muted-foreground">Unable to load opportunities. Please try again or contact Sina directly.</p>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-20 text-muted-foreground" data-testid="empty-state">
+              {listings.length === 0 ? (
+                <>
+                  <Building2 className="w-12 h-12 mx-auto mb-4 text-white/10" />
+                  <p className="text-lg">No approved listings yet.</p>
+                  <p className="text-sm mt-2">Contact Sina for off-market and pre-market opportunities.</p>
+                </>
+              ) : (
+                <p className="text-lg">No opportunities currently listed in this category. Contact Sina for private access.</p>
+              )}
+            </div>
+          ) : (
+            <motion.div
+              key={activeCategory}
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {filtered.map((listing) => (
+                <motion.div key={listing.listing_id} variants={fadeInUp}>
+                  <Card className="bg-card border-white/5 overflow-hidden group hover:border-secondary/50 transition-all duration-300 h-full sc-card-lift">
+                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                      <div className="absolute top-4 left-4 z-10 bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-secondary rounded-sm">
+                        {listing.deal_type}
+                      </div>
+                      <Building2 className="w-16 h-16 text-white/10" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                    </div>
+                    <CardContent className="p-6 -mt-6 relative z-10 flex flex-col h-full">
+                      <h3 className="font-serif text-xl text-white mb-3 line-clamp-2">{listing.title}</h3>
+                      <div className="flex items-center justify-between text-sm text-muted-foreground mb-4 flex-1">
+                        <span className="flex items-center"><MapPin className="w-4 h-4 mr-1 text-secondary" /> {listing.city}</span>
+                        <span className="font-medium text-white">{listing.size_range || `${listing.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
+                      </div>
+                      {listing.price_or_rent_display && (
+                        <p className="text-xs text-secondary mb-4">{listing.price_or_rent_display}</p>
+                      )}
+                      {listing.key_features && (
+                        <p className="text-xs text-muted-foreground mb-4 line-clamp-2">{listing.key_features}</p>
+                      )}
+                      <Button
+                        asChild
+                        variant="outline"
+                        data-testid={`btn-request-info-${listing.listing_id}`}
+                        className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto"
+                      >
+                        <Link href="/contact">Request Info</Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
 
