@@ -404,6 +404,42 @@ function buildSheetRow(s: ValidatedSubmission, submissionId: string, pipedrivePe
   ];
 }
 
+// ── Auto-Reply ──────────────────────────────────────────────────
+// POSTs to the auto-reply microservice on the Docker host.
+// Non-blocking, errors are swallowed — the submission has already succeeded.
+
+const AUTO_REPLY_URL = "http://172.17.0.1:8788/auto-reply";
+
+function sendAutoReply(
+  formType: string,
+  email: string,
+  name: string,
+  submissionId: string,
+): void {
+  if (!email) return;
+
+  fetch(AUTO_REPLY_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      form: formType,
+      email,
+      name,
+      id: submissionId,
+    }),
+    signal: AbortSignal.timeout(10000),
+  })
+    .then((res) => res.json().catch(() => ({})))
+    .then((result) => {
+      logger.info({ submissionId, formType, status: result.status },
+        `Auto-reply ${result.status || "sent"}`);
+    })
+    .catch((err) => {
+      logger.warn({ submissionId, formType, err: String(err) },
+        "Auto-reply failed (non-critical)");
+    });
+}
+
 // ── POST /api/submissions ──────────────────────────────────────
 
 router.post("/submissions", async (req: Request, res: Response) => {
@@ -532,6 +568,14 @@ router.post("/submissions", async (req: Request, res: Response) => {
       score: sub.formType === "advanced-search" ? score : undefined,
       priority: sub.formType === "advanced-search" ? priority : undefined,
     });
+
+    // 10. Auto-reply acknowledgment (non-blocking, fire-and-forget)
+    sendAutoReply(
+      sub.formType,
+      sub.contact.email,
+      `${sub.contact.firstName} ${sub.contact.lastName}`.trim(),
+      formatSubmissionId(submissionId),
+    );
 
   } catch (err) {
     const durationMs = Date.now() - startTime;

@@ -126,6 +126,18 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     await (await import("node:fs/promises")).cp(srcDataDir, dstDataDir, { recursive: true });
     console.log("  Copied data/ to dist/");
   } catch { /* ok if no data dir */ }
+
+  // Copy auto-reply Python script into dist for exec call
+  const fs = await import("node:fs/promises");
+  const srcReplyPy = path.resolve(artifactDir, "src", "lib", "auto-reply.py");
+  const dstReplyPy = path.resolve(distDir, "lib", "auto-reply.py");
+  try {
+    await fs.mkdir(path.dirname(dstReplyPy), { recursive: true });
+    await fs.cp(srcReplyPy, dstReplyPy);
+    console.log("  Copied auto-reply.py to dist/");
+  } catch (err) {
+    console.warn("  WARNING: Could not copy auto-reply.py:", err.message);
+  }
 }
 
 buildAll().catch((err) => {
