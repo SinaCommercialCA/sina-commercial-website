@@ -9,6 +9,7 @@ import {
 } from "../lib/pipedrive";
 import { appendRow } from "../lib/sheets";
 import { notifySina } from "../lib/notification";
+import { runInstantMatch } from "../lib/instant-match";
 import { logger } from "../lib/logger";
 import { validateSubmission, type ValidatedSubmission } from "../lib/validation";
 import { env } from "../lib/env";
@@ -576,6 +577,18 @@ router.post("/submissions", async (req: Request, res: Response) => {
       `${sub.contact.firstName} ${sub.contact.lastName}`.trim(),
       formatSubmissionId(submissionId),
     );
+
+    // 11. Kevin Instant Match (advanced-search only, non-blocking)
+    if (sub.formType === "advanced-search") {
+      runInstantMatch(
+        formatSubmissionId(submissionId),
+        sub.payload as Record<string, unknown>,
+        `${sub.contact.firstName} ${sub.contact.lastName}`.trim(),
+        lead.id,
+      ).catch((matchErr) => {
+        logger.error({ err: matchErr, submissionId }, "Instant match failed");
+      });
+    }
 
   } catch (err) {
     const durationMs = Date.now() - startTime;
