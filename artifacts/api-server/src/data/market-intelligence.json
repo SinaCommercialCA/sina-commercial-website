@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-14",
+  "last_updated": "2026-06-14T06:00:00-04:00",
   "sections": [
     {
       "id": "industrial-snapshot",
@@ -141,8 +141,17 @@
     }
   ],
   "weekly_notes": {
-    "title": "Weekly Commercial Notes — June 13, 2026",
-    "content": "Active search continues for industrial and automotive opportunities in Toronto, North York, and Scarborough. Off-market sourcing for gas stations within 1 hour of Milton remains a priority. Investment buyer demand for multi-tenant industrial and retail plazas is steady.",
+    "title": "Market Notes — Week of June 8–14, 2026",
+    "content": "Mid-June GTA commercial markets remain supply-constrained across industrial, automotive, and small-bay retail. 55 curated opportunities now live on the platform across 7 categories — industrial, automotive, retail, investment, gas stations, and land. GTA industrial vacancy holds sub-2% in core nodes, with small-bay units under 5,000 SF the tightest segment. Automotive property demand is intense — mechanic shops, body shops, and car washes in Toronto and Scarborough typically lease before reaching public channels. Q2 closing activity is elevated. Active buyer mandates: industrial owner-user (GTA-wide), gas stations (Milton corridor), and automotive properties (Toronto–Scarborough). Next week: monitor Q2 close activity, expand retail inventory, and track new listing intake.",
+    "summary": "55 curated CRE opportunities live. GTA industrial sub-2% vacancy. Automotive property shortage. Q2 closing elevated.",
+    "highlights": [
+      "55 vetted commercial opportunities now live — industrial, automotive, retail, investment, gas stations, and land.",
+      "GTA industrial vacancy holds sub-2% in core nodes. Small-bay units under 5,000 SF are the tightest segment.",
+      "Automotive property demand intense — mechanic shops, body shops, and car washes lease before reaching public channels.",
+      "Q2 closing activity elevated. Buyers and tenants with financing in place hold the advantage.",
+      "Active gas station sourcing continues — buyer mandate for stations within 1 hour of Milton, ON."
+    ],
+    "looking_ahead": "Next week: monitor Q2 close activity, expand retail inventory on the platform, and track new listing intake from brokerage and off-market channels.",
     "approved_for_web": true
   }
 }
