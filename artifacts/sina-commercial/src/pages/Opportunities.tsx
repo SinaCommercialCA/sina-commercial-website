@@ -173,10 +173,11 @@ export default function Opportunities() {
                         <p className="text-xs text-muted-foreground mb-4 line-clamp-2">{listing.key_features}</p>
                       )}
                       <Button
+                        type="button"
                         variant="outline"
                         data-testid={`btn-request-info-${listing.listing_id}`}
                         className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto relative z-20 cursor-pointer pointer-events-auto"
-                        onClick={(e) => { e.stopPropagation(); setModalListing(listing); }}
+                        onClick={(e) => { e.stopPropagation(); console.log('CLICK Opportunities card', listing.listing_id); (window as any).__lastClick = { page: 'Opportunities', id: listing.listing_id, time: Date.now() }; setModalListing(listing); }}
                       >
                         Request Details
                       </Button>

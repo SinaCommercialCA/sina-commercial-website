@@ -231,10 +231,11 @@ export default function Home() {
                       <span className="font-medium text-white">{listing.size_range || `${listing.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
                     </div>
                     <Button
+                      type="button"
                       variant="outline"
                       size="sm"
                       className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs relative z-20 cursor-pointer pointer-events-auto"
-                      onClick={(e) => { e.stopPropagation(); setModalListing(listing); }}
+                      onClick={(e) => { e.stopPropagation(); console.log('CLICK Home card', listing.listing_id); (window as any).__lastClick = { page: 'Home', id: listing.listing_id, time: Date.now() }; setModalListing(listing); }}
                     >
                       Request Details
                     </Button>

@@ -323,10 +323,11 @@ function QuickSearch() {
                     <span className="text-[10px] text-muted-foreground">{match.property_type}</span>
                   </div>
                   <Button
+                    type="button"
                     variant="ghost"
                     size="sm"
                     className="text-secondary hover:text-white hover:bg-secondary/10 text-xs relative z-20 cursor-pointer pointer-events-auto"
-                    onClick={(e) => { e.stopPropagation(); setModalMatch(match); }}
+                    onClick={(e) => { e.stopPropagation(); console.log('CLICK Search match', match.listing_id); (window as any).__lastClick = { page: 'Search', id: match.listing_id, time: Date.now() }; setModalMatch(match); }}
                   >
                     Request Details
                   </Button>
