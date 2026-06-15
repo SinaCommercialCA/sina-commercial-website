@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import sinaLogoPath from "@assets/Sina_Logo_V3_Navy_Blue_1780720012133.png";
-import { Menu } from "lucide-react";
+import { Menu, ExternalLink } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function Navbar() {
@@ -16,6 +16,18 @@ export function Navbar() {
     { name: "Services", href: "/services" },
     { name: "Contact", href: "/contact" },
   ];
+
+  const daniUrl = "https://dani.sinacommercial.ca";
+
+  const trackDaniClick = async (source: string) => {
+    try {
+      await fetch("/api/track/dani", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ source_page: source }),
+      });
+    } catch { /* silent */ }
+  };
 
   const isActive = (href: string) => location === href;
 
@@ -36,6 +48,18 @@ export function Navbar() {
 
           {/* DESKTOP NAV */}
           <div className="hidden lg:flex lg:items-center lg:gap-7 xl:gap-8">
+            {/* Dani Zoning — external link */}
+            <a
+              href={daniUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackDaniClick("navbar")}
+              className="text-sm font-medium transition-all duration-200 text-foreground/70 hover:text-secondary flex items-center gap-1"
+            >
+              Dani Zoning
+              <ExternalLink className="w-3 h-3" />
+            </a>
+
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -77,6 +101,17 @@ export function Navbar() {
                   <img src={sinaLogoPath} alt="Sina Commercial" className="h-12 w-auto logo-blend mb-8" />
                 </div>
                 <div className="flex flex-col gap-1">
+                  <a
+                    href={daniUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => { trackDaniClick("mobile-nav"); setIsOpen(false); }}
+                    className="px-3 py-3 text-base font-medium rounded-sm transition-all duration-200 text-foreground hover:text-secondary hover:bg-white/5 flex items-center gap-1.5"
+                  >
+                    Dani Zoning
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}

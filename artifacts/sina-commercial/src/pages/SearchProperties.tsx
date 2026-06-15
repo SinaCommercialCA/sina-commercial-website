@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info, MapPin, Building2, Search } from "lucide-react";
+import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info, MapPin, Building2, Search, ExternalLink } from "lucide-react";
 import type { ListingMatch } from "@/lib/api-types";
 import { imageUrlFor } from "@/lib/image-url";
 import ListingRequestModal from "@/components/ListingRequestModal";
@@ -509,6 +509,26 @@ export default function SearchProperties() {
             {["Industrial", "Retail", "Office", "Investment", "Owner-User", "Business With Property"].map(t => (
               <span key={t}>{t}</span>
             ))}
+          </div>
+
+          {/* Dani Zoning callout */}
+          <div className="mt-6 flex items-center gap-3 p-3 bg-secondary/5 border border-secondary/10 rounded-sm max-w-xl">
+            <Info className="w-4 h-4 text-secondary shrink-0" />
+            <p className="text-xs text-muted-foreground">
+              Need to verify zoning before searching?
+            </p>
+            <a
+              href="https://dani.sinacommercial.ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                try { fetch("/api/track/dani", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ source_page: "search-properties" }) }); } catch {}
+              }}
+              className="inline-flex items-center gap-1 bg-secondary text-background hover:bg-secondary/90 rounded-sm px-3 py-1.5 text-xs font-semibold transition-colors shrink-0"
+            >
+              Launch Dani
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
         </div>
       </section>
