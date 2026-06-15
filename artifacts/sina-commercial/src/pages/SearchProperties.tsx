@@ -7,7 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info, MapPin, Building2 } from "lucide-react";
 import type { ListingMatch } from "@/lib/api-types";
-import { getListingImage } from "@/lib/listing-image";
 
 /* ─── helpers ──────────────────────────────────────────────────────────────── */
 function CB({
@@ -296,30 +295,18 @@ function QuickSearch() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {matches.slice(0, 3).map((match) => (
-              <div key={match.listing_id} className="border border-white/10 bg-background hover:border-secondary/30 transition-colors rounded-sm overflow-hidden">
-                <div className="relative h-36 bg-gradient-to-br from-primary/10 to-secondary/10">
-                  <img
-                    src={getListingImage(match.image_url, match.property_type, match.use_type)}
-                    alt={match.title}
-                    className="w-full h-full object-cover object-center"
-                    loading="lazy"
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
+              <div key={match.listing_id} className="p-4 border border-white/10 bg-background hover:border-secondary/30 transition-colors rounded-sm">
+                <h4 className="font-serif text-sm text-white mb-2 line-clamp-2">{match.title}</h4>
+                <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                  <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-secondary" /> {match.city}</span>
+                  <span>{match.size_range || `${match.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
                 </div>
-                <div className="p-3">
-                  <h4 className="font-serif text-sm text-white mb-1 line-clamp-2">{match.title}</h4>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-secondary" /> {match.city}</span>
-                    <span>{match.size_range || `${match.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
-                  </div>
-                  {match.price_or_rent_display && (
-                    <p className="text-xs text-secondary mb-1">{match.price_or_rent_display}</p>
-                  )}
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] px-2 py-0.5 bg-secondary/10 text-secondary rounded-sm">{match.deal_type}</span>
-                    <span className="text-[10px] text-muted-foreground">{match.property_type}</span>
-                  </div>
+                {match.price_or_rent_display && (
+                  <p className="text-xs text-secondary mb-1">{match.price_or_rent_display}</p>
+                )}
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-[10px] px-2 py-0.5 bg-secondary/10 text-secondary rounded-sm">{match.deal_type}</span>
+                  <span className="text-[10px] text-muted-foreground">{match.property_type}</span>
                 </div>
               </div>
             ))}

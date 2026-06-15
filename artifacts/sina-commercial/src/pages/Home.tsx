@@ -209,20 +209,15 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
               {featured.map((listing) => (
                 <Card key={listing.listing_id} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors sc-card-lift">
-                  <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10">
-                    <img
-                      src={getListingImage(listing.image_url, listing.property_type, listing.use_type)}
-                      alt={listing.title}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
-                      }}
-                    />
+                  <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    {listing.image_url && (
+                      <img src={listing.image_url} alt={listing.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    )}
                     <div className="absolute top-3 left-3 z-10 bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-secondary rounded-sm">
                       {listing.deal_type}
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent pointer-events-none" />
+                    <Building2 className="w-16 h-16 text-white/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                   </div>
                   <CardContent className="p-5 relative z-10 -mt-6">
                     <h3 className="font-serif text-lg text-white mb-3 line-clamp-2">{listing.title}</h3>
