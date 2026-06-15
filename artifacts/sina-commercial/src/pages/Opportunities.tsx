@@ -147,8 +147,8 @@ export default function Opportunities() {
             >
               {filtered.map((listing) => (
                 <motion.div key={listing.listing_id} variants={fadeInUp}>
-                  <Card className="bg-card border-white/5 overflow-hidden group hover:border-secondary/50 transition-all duration-300 h-full sc-card-lift">
-                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                  <Card className="bg-card border-white/5 group hover:border-secondary/50 transition-all duration-300 h-full sc-card-lift">
+                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center rounded-t-lg">
                       <img
                         src={imageUrlFor(listing)}
                         alt={listing.title}
@@ -160,23 +160,23 @@ export default function Opportunities() {
                       </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                     </div>
-                    <CardContent className="p-6 -mt-6 relative z-10 flex flex-col h-full">
+                    <CardContent className="p-6 -mt-6 relative z-10 flex flex-col">
                       <h3 className="font-serif text-xl text-white mb-3 line-clamp-2">{listing.title}</h3>
-                      <div className="flex items-center justify-between text-sm text-muted-foreground mb-4 flex-1">
+                      <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                         <span className="flex items-center"><MapPin className="w-4 h-4 mr-1 text-secondary" /> {listing.city}</span>
                         <span className="font-medium text-white">{listing.size_range || `${listing.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
                       </div>
                       {listing.price_or_rent_display && (
-                        <p className="text-xs text-secondary mb-4">{listing.price_or_rent_display}</p>
+                        <p className="text-xs text-secondary mb-3">{listing.price_or_rent_display}</p>
                       )}
                       {listing.key_features && (
-                        <p className="text-xs text-muted-foreground mb-4 line-clamp-2">{listing.key_features}</p>
+                        <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{listing.key_features}</p>
                       )}
                       <Button
                         type="button"
                         variant="outline"
                         data-testid={`btn-request-info-${listing.listing_id}`}
-                        className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto no-default-hover-elevate no-default-active-elevate"
+                        className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-3 no-default-hover-elevate no-default-active-elevate"
                         onClick={() => { setModalListing(listing); }}
                       >
                         Request Details

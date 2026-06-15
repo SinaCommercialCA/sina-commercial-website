@@ -211,8 +211,8 @@ export default function Home() {
           ) : hasDynamicFeatured ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
               {featured.map((listing) => (
-                <Card key={listing.listing_id} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors sc-card-lift">
-                  <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                <Card key={listing.listing_id} className="bg-background border-white/5 group hover:border-secondary/50 transition-colors sc-card-lift">
+                  <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center rounded-t-lg">
                     <img
                       src={imageUrlFor(listing)}
                       alt={listing.title}
