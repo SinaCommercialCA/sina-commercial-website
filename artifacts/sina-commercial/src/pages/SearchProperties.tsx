@@ -326,8 +326,8 @@ function QuickSearch() {
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="text-secondary hover:text-white hover:bg-secondary/10 text-xs relative z-20 cursor-pointer pointer-events-auto"
-                    onClick={(e) => { e.stopPropagation(); console.log('CLICK Search match', match.listing_id); (window as any).__lastClick = { page: 'Search', id: match.listing_id, time: Date.now() }; setModalMatch(match); }}
+                    className="text-secondary hover:text-white hover:bg-secondary/10 text-xs no-default-hover-elevate no-default-active-elevate"
+                    onClick={() => { setModalMatch(match); }}
                   >
                     Request Details
                   </Button>

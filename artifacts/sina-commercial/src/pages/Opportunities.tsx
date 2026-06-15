@@ -176,8 +176,8 @@ export default function Opportunities() {
                         type="button"
                         variant="outline"
                         data-testid={`btn-request-info-${listing.listing_id}`}
-                        className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto relative z-20 cursor-pointer pointer-events-auto"
-                        onClick={(e) => { e.stopPropagation(); console.log('CLICK Opportunities card', listing.listing_id); (window as any).__lastClick = { page: 'Opportunities', id: listing.listing_id, time: Date.now() }; setModalListing(listing); }}
+                        className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto no-default-hover-elevate no-default-active-elevate"
+                        onClick={() => { setModalListing(listing); }}
                       >
                         Request Details
                       </Button>
