@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info, MapPin, Building2 } from "lucide-react";
+import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info, MapPin, Building2, Search } from "lucide-react";
 import type { ListingMatch } from "@/lib/api-types";
+import { imageUrlFor } from "@/lib/image-url";
+import ListingRequestModal from "@/components/ListingRequestModal";
 
 /* ─── helpers ──────────────────────────────────────────────────────────────── */
 function CB({
@@ -167,6 +169,7 @@ const STEP_LABELS = [
 
 /* ─── Quick Search ──────────────────────────────────────────────────────────── */
 function QuickSearch() {
+  const [modalMatch, setModalMatch] = useState<ListingMatch | null>(null);
   const [qs, setQs] = useState({ name: "", phone: "", email: "", mode: "", type: "", area: "", size: "" });
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -224,6 +227,7 @@ function QuickSearch() {
   );
 
   return (
+    <>
     <form data-testid="form-quick-search" onSubmit={handleQuickSubmit} className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="space-y-1.5">
@@ -296,6 +300,15 @@ function QuickSearch() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {matches.slice(0, 3).map((match) => (
               <div key={match.listing_id} className="p-4 border border-white/10 bg-background hover:border-secondary/30 transition-colors rounded-sm">
+                {/* thumbnail */}
+                <div className="w-full h-32 mb-3 rounded-sm overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10">
+                  <img
+                    src={imageUrlFor(match)}
+                    alt={match.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
                 <h4 className="font-serif text-sm text-white mb-2 line-clamp-2">{match.title}</h4>
                 <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
                   <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-secondary" /> {match.city}</span>
@@ -304,9 +317,19 @@ function QuickSearch() {
                 {match.price_or_rent_display && (
                   <p className="text-xs text-secondary mb-1">{match.price_or_rent_display}</p>
                 )}
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-[10px] px-2 py-0.5 bg-secondary/10 text-secondary rounded-sm">{match.deal_type}</span>
-                  <span className="text-[10px] text-muted-foreground">{match.property_type}</span>
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] px-2 py-0.5 bg-secondary/10 text-secondary rounded-sm">{match.deal_type}</span>
+                    <span className="text-[10px] text-muted-foreground">{match.property_type}</span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-secondary hover:text-white hover:bg-secondary/10 text-xs"
+                    onClick={() => setModalMatch(match)}
+                  >
+                    Request Details
+                  </Button>
                 </div>
               </div>
             ))}
@@ -332,6 +355,13 @@ function QuickSearch() {
       </Button>
       <p className="text-xs text-muted-foreground text-center">For detailed requirements, use the full Advanced Search below.</p>
     </form>
+      {modalMatch && (
+        <ListingRequestModal
+          listing={modalMatch}
+          onClose={() => setModalMatch(null)}
+        />
+      )}
+    </>
   );
 }
 

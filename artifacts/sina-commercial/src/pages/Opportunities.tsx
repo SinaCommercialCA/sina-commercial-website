@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, ArrowRight, Building2, Loader2 } from "lucide-react";
 import type { PublicListing } from "@/lib/api-types";
+import { imageUrlFor } from "@/lib/image-url";
+import ListingRequestModal from "@/components/ListingRequestModal";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -27,6 +29,7 @@ const FILTER_CATEGORIES = [
 ];
 
 export default function Opportunities() {
+  const [modalListing, setModalListing] = useState<PublicListing | null>(null);
   const [activeCategory, setActiveCategory] = useState("All");
   const [listings, setListings] = useState<PublicListing[]>([]);
   const [loading, setLoading] = useState(true);
@@ -146,13 +149,15 @@ export default function Opportunities() {
                 <motion.div key={listing.listing_id} variants={fadeInUp}>
                   <Card className="bg-card border-white/5 overflow-hidden group hover:border-secondary/50 transition-all duration-300 h-full sc-card-lift">
                     <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                      {listing.image_url && (
-                        <img src={listing.image_url} alt={listing.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                      )}
+                      <img
+                        src={imageUrlFor(listing)}
+                        alt={listing.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
+                      />
                       <div className="absolute top-4 left-4 z-10 bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-secondary rounded-sm">
                         {listing.deal_type}
                       </div>
-                      <Building2 className="w-16 h-16 text-white/10" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                     </div>
                     <CardContent className="p-6 -mt-6 relative z-10 flex flex-col h-full">
@@ -168,12 +173,12 @@ export default function Opportunities() {
                         <p className="text-xs text-muted-foreground mb-4 line-clamp-2">{listing.key_features}</p>
                       )}
                       <Button
-                        asChild
                         variant="outline"
                         data-testid={`btn-request-info-${listing.listing_id}`}
                         className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto"
+                        onClick={() => setModalListing(listing)}
                       >
-                        <Link href="/contact">Request Info</Link>
+                        Request Details
                       </Button>
                     </CardContent>
                   </Card>
@@ -204,6 +209,13 @@ export default function Opportunities() {
           </Button>
         </div>
       </section>
+      {/* Listing Request Modal */}
+      {modalListing && (
+        <ListingRequestModal
+          listing={modalListing}
+          onClose={() => setModalListing(null)}
+        />
+      )}
     </div>
   );
 }

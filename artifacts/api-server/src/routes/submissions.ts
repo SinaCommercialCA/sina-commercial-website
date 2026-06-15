@@ -606,4 +606,184 @@ router.post("/submissions", async (req: Request, res: Response) => {
   }
 });
 
+// ── POST /api/listings/request-details ────────────────────────
+// Listing-specific request flow: visitor requests details for a
+// specific listing. Creates Pipedrive Person + Lead, notifies Sina.
+
+interface ListingRequestBody {
+  listing_id: string;
+  listing_title: string;
+  page_url: string;
+  source_detail: string;
+  name: string;
+  email: string;
+  phone?: string;
+  message?: string;
+}
+
+router.post("/listings/request-details", async (req: Request, res: Response) => {
+  const startTime = Date.now();
+
+  try {
+    // 1. Rate limit
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    if (!checkRateLimit(ip)) {
+      res.status(429).json({ error: "Too many requests. Please try again later." });
+      return;
+    }
+
+    // 2. Parse body
+    const body = req.body as ListingRequestBody;
+    if (!body || !body.listing_id || !body.name || !body.email) {
+      res.status(400).json({ error: "Missing required fields: listing_id, name, email" });
+      return;
+    }
+
+    const { listing_id, listing_title, page_url, source_detail = "Listing Request", name: fullName, email, phone, message } = body;
+    const nameParts = fullName.trim().split(/\s+/);
+    const firstName = nameParts[0] || "";
+    const lastName = nameParts.slice(1).join(" ") || "";
+
+    logger.info({ listing_id, email, name: fullName }, "Listing request received");
+
+    // 3. Find or create Pipedrive Person
+    let personId: number;
+    const existingPerson = await searchPersonByEmail(email);
+
+    if (existingPerson) {
+      personId = existingPerson.id;
+      const updates: Record<string, string> = {};
+      const existingPhone = existingPerson.phone?.[0]?.value;
+      if (phone && !existingPhone) updates.phone = phone;
+      if (firstName && !existingPerson.name?.includes(firstName)) {
+        updates.name = fullName.trim();
+      }
+      if (Object.keys(updates).length > 0) {
+        await updatePerson(personId, updates);
+      }
+      logger.info({ personId, existing: true }, "Person matched for listing request");
+    } else {
+      const person = await createPerson({
+        name: fullName.trim(),
+        email,
+        phone: phone || undefined,
+      });
+      personId = person.id;
+      logger.info({ personId, existing: false }, "Person created for listing request");
+    }
+
+    // 4. Create Lead in Pipedrive
+    const leadTitle = `🌐 Listing Request — ${fullName.trim()}: ${listing_title}`;
+    const lead = await createLead({
+      title: leadTitle,
+      person_id: personId,
+    });
+
+    // 5. Add detail note
+    const noteLines = [
+      `📥 Website — Listing Request`,
+      `Submitted: ${new Date().toISOString()}`,
+      "",
+      "─── Requested Listing ───",
+      `Listing ID: ${listing_id}`,
+      `Title: ${listing_title}`,
+      `Page: ${page_url}`,
+      "",
+      "─── Contact ───",
+      `Name: ${fullName.trim()}`,
+      `Email: ${email}`,
+    ];
+    if (phone) noteLines.push(`Phone: ${phone}`);
+    if (message) {
+      noteLines.push("");
+      noteLines.push("─── Message ───");
+      noteLines.push(message);
+    }
+    noteLines.push("");
+    noteLines.push(`⏰ Status: New → Qualify`);
+    noteLines.push(`🏷️ Source: ${source_detail}`);
+
+    await addLeadNote(lead.id, noteLines.join("\n"));
+    logger.info({ leadId: lead.id, personId }, "Listing request Lead created");
+
+    // 6. Save to Google Sheets
+    try {
+      await appendRow("website-leads", [
+        listing_id,                    // listing_id referenced
+        new Date().toISOString(),
+        "listing-request",
+        firstName,
+        lastName,
+        email,
+        phone || "",
+        "",                             // company
+        listing_title,                  // searchPurpose → listing title
+        "",                             // propertyTypes
+        "",                             // intendedUse
+        "",                             // locations
+        "",                             // sizeRequirements
+        "",                             // budget
+        "",                             // timeline
+        "",                             // clearHeight
+        "",                             // power
+        "",                             // shipping
+        "",                             // special
+        "",                             // qs-mode
+        "",                             // qs-type
+        "",                             // qs-area
+        "",                             // qs-size
+        "",                             // inquiryType
+        message || "",                  // message
+        "",                             // marketRole
+        "",                             // marketAreas
+        "",                             // marketPropertyTypes
+        personId,
+        lead.id,
+        null,                           // score
+        null,                           // priority
+        "new",
+      ]);
+    } catch (sheetErr) {
+      logger.error({ err: sheetErr }, "Sheet append failed for listing request");
+    }
+
+    // 7. Telegram notification
+    notifySina({
+      submissionId: listing_id,
+      formType: "Listing Request",
+      name: fullName.trim(),
+      email,
+      phone,
+      summary: `${fullName.trim()} | Requested: ${listing_title} | ${listing_id}`,
+    }).catch((err) => {
+      logger.error({ err, listing_id }, "Notification failed for listing request");
+    });
+
+    // 8. Auto-reply (Kevin acknowledgment + listing summary)
+    sendAutoReply(
+      "listing-request",
+      email,
+      fullName.trim(),
+      listing_id,
+    );
+
+    // 9. Success
+    const durationMs = Date.now() - startTime;
+    logger.info({
+      listing_id,
+      personId,
+      leadId: lead.id,
+      durationMs,
+    }, "Listing request completed");
+
+    res.json({ success: true });
+
+  } catch (err) {
+    logger.error({ err }, "Listing request failed");
+    res.status(500).json({
+      error: "We encountered an issue processing your request. Please try again or email sina@sinacommercial.ca.",
+    });
+  }
+});
+
 export default router;

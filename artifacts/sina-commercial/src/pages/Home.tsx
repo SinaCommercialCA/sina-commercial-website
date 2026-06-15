@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, TrendingUp, Search, ShieldCheck, MapPin, Briefcase, ChevronRight, ArrowRight } from "lucide-react";
 import headshot from "@assets/photo_2026-06-05_01-52-08_1780720012134.jpg";
+import ListingRequestModal from "@/components/ListingRequestModal";
 
 import heroBg from "@/assets/hero-bg.png";
 import type { PublicListing, MarketIntelSection } from "@/lib/api-types";
+import { imageUrlFor } from "@/lib/image-url";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -27,6 +29,7 @@ export default function Home() {
   const [featured, setFeatured] = React.useState<PublicListing[]>([]);
   const [intelSections, setIntelSections] = React.useState<MarketIntelSection[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const [modalListing, setModalListing] = React.useState<PublicListing | null>(null);
 
   React.useEffect(() => {
     async function load() {
@@ -210,13 +213,15 @@ export default function Home() {
               {featured.map((listing) => (
                 <Card key={listing.listing_id} className="bg-background border-white/5 overflow-hidden group hover:border-secondary/50 transition-colors sc-card-lift">
                   <div className="relative h-52 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-                    {listing.image_url && (
-                      <img src={listing.image_url} alt={listing.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                    )}
+                    <img
+                      src={imageUrlFor(listing)}
+                      alt={listing.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                    />
                     <div className="absolute top-3 left-3 z-10 bg-background/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-secondary rounded-sm">
                       {listing.deal_type}
                     </div>
-                    <Building2 className="w-16 h-16 text-white/10" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                   </div>
                   <CardContent className="p-5 relative z-10 -mt-6">
@@ -225,8 +230,13 @@ export default function Home() {
                       <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-secondary shrink-0" /> {listing.city}</span>
                       <span className="font-medium text-white">{listing.size_range || `${listing.size_sqft?.toLocaleString() ?? "—"} SF`}</span>
                     </div>
-                    <Button asChild variant="outline" size="sm" className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs">
-                      <Link href="/contact">Request Info</Link>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs"
+                      onClick={() => setModalListing(listing)}
+                    >
+                      Request Details
                     </Button>
                   </CardContent>
                 </Card>
@@ -402,6 +412,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Listing Request Modal */}
+      {modalListing && (
+        <ListingRequestModal
+          listing={modalListing}
+          onClose={() => setModalListing(null)}
+        />
+      )}
     </div>
   );
 }
