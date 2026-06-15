@@ -141,6 +141,7 @@ function toPublicListing(row: SheetRow, sheetName: string): Record<string, unkno
     key_features: safeStr(row["key_features"]),
     public_remarks: safeStr(row["remarks_short"]),
     image_url: safeStr(row["image_url"]) || null,
+    image_status: safeStr(row["image_url"]) ? "approved" : "fallback",
     status: safeStr(row["status"]) || "Active",
     source_type: safeStr(row["source"]) || "Internal",
     display_priority: safeNum(row["display_priority"]) || 0,

@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, ArrowRight, Building2, Loader2 } from "lucide-react";
+import { getListingImage } from "@/lib/listing-image";
 import type { PublicListing } from "@/lib/api-types";
 
 const fadeInUp = {
@@ -145,12 +146,18 @@ export default function Opportunities() {
               {filtered.map((listing) => (
                 <motion.div key={listing.listing_id} variants={fadeInUp}>
                   <Card className="bg-card border-white/5 overflow-hidden group hover:border-secondary/50 transition-all duration-300 h-full sc-card-lift">
-                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10">
+                      <img
+                        src={getListingImage(listing.image_url, listing.property_type, listing.use_type)}
+                        alt={listing.title}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
                       <div className="absolute top-4 left-4 z-10 bg-background/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-secondary rounded-sm">
                         {listing.deal_type}
                       </div>
-                      <Building2 className="w-16 h-16 text-white/10" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent pointer-events-none" />
                     </div>
                     <CardContent className="p-6 -mt-6 relative z-10 flex flex-col h-full">
                       <h3 className="font-serif text-xl text-white mb-3 line-clamp-2">{listing.title}</h3>

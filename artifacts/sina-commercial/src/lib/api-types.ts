@@ -18,6 +18,7 @@ export interface PublicListing {
   key_features: string;
   public_remarks: string;
   image_url: string | null;
+  image_status: "approved" | "fallback" | "missing" | "needs_review";
   status: string;
   source_type: string;
   display_priority: number;
