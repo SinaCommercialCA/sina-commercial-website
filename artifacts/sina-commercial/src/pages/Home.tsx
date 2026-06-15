@@ -233,8 +233,8 @@ export default function Home() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs"
-                      onClick={() => setModalListing(listing)}
+                      className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all text-xs relative z-20 cursor-pointer pointer-events-auto"
+                      onClick={(e) => { e.stopPropagation(); setModalListing(listing); }}
                     >
                       Request Details
                     </Button>

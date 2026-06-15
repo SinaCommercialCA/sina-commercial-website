@@ -325,8 +325,8 @@ function QuickSearch() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-secondary hover:text-white hover:bg-secondary/10 text-xs"
-                    onClick={() => setModalMatch(match)}
+                    className="text-secondary hover:text-white hover:bg-secondary/10 text-xs relative z-20 cursor-pointer pointer-events-auto"
+                    onClick={(e) => { e.stopPropagation(); setModalMatch(match); }}
                   >
                     Request Details
                   </Button>

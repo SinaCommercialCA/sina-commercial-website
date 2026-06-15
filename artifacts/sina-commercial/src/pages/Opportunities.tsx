@@ -175,8 +175,8 @@ export default function Opportunities() {
                       <Button
                         variant="outline"
                         data-testid={`btn-request-info-${listing.listing_id}`}
-                        className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto"
-                        onClick={() => setModalListing(listing)}
+                        className="w-full border-primary/40 text-white hover:bg-primary hover:border-primary rounded-sm transition-all mt-auto relative z-20 cursor-pointer pointer-events-auto"
+                        onClick={(e) => { e.stopPropagation(); setModalListing(listing); }}
                       >
                         Request Details
                       </Button>
