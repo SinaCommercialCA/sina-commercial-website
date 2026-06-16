@@ -3,46 +3,112 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Sina Commercial | GTA Commercial Real Estate — Industrial, Retail &amp; Investment</title>
-    <meta name="description" content="GTA commercial real estate advisory by Sina Shahravan — industrial, retail, investment, and off-market opportunities across Toronto, Vaughan, Mississauga, Markham, and surrounding markets." />
+    <title>Sina Commercial — GTA Commercial Real Estate | Industrial • Retail • Automotive • Investment</title>
+    <meta name="description" content="Sina Commercial — Commercial real estate intelligence for the Greater Toronto Area. Industrial, retail, automotive, and investment properties. Off-market opportunities, market intelligence, and expert advisory by Sina Shahravan." />
+    <meta name="author" content="Sina Shahravan" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://sinacommercial.ca" />
-    <meta property="og:title" content="Sina Commercial | GTA Commercial Real Estate Advisory" />
-    <meta property="og:description" content="Industrial, retail, investment, and off-market commercial real estate opportunities across the Greater Toronto Area." />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sina Commercial — GTA Commercial Real Estate Intelligence" />
+    <meta property="og:description" content="Industrial • Retail • Automotive • Investment Opportunities across the Greater Toronto Area. Market intelligence, off-market listings, and expert commercial real estate advisory." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://sinacommercial.ca" />
     <meta property="og:image" content="https://sinacommercial.ca/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Sina Commercial — GTA Commercial Real Estate Intelligence" />
     <meta property="og:site_name" content="Sina Commercial" />
+    <meta property="og:locale" content="en_CA" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sina Commercial | GTA Commercial Real Estate Advisory" />
-    <meta name="twitter:description" content="Industrial, retail, investment, and off-market commercial real estate opportunities across the Greater Toronto Area." />
+    <meta name="twitter:title" content="Sina Commercial — GTA Commercial Real Estate Intelligence" />
+    <meta name="twitter:description" content="Industrial • Retail • Automotive • Investment Opportunities across the Greater Toronto Area. Market intelligence, off-market listings, and expert advisory." />
     <meta name="twitter:image" content="https://sinacommercial.ca/twitter-card.png" />
+    <meta name="twitter:image:alt" content="Sina Commercial — GTA Commercial Real Estate Intelligence" />
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/favicon.svg" color="#13203e" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#13203e" />
+    <meta name="apple-mobile-web-app-title" content="Sina Commercial" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  "name": "Sina Commercial",
-  "description": "GTA commercial real estate advisory — industrial, retail, investment, and off-market opportunities.",
-  "url": "https://sinacommercial.ca",
-  "areaServed": {
-    "@type": "City",
-    "name": "Greater Toronto Area"
-  },
-  "employee": {
-    "@type": "Person",
-    "name": "Sina Shahravan",
-    "jobTitle": "Vice President, Sales Associate"
-  }
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://sinacommercial.ca/#organization",
+      "name": "Sina Commercial",
+      "url": "https://sinacommercial.ca",
+      "description": "Commercial real estate intelligence for the Greater Toronto Area — industrial, retail, automotive, and investment properties.",
+      "logo": "https://sinacommercial.ca/og-image.png",
+      "areaServed": {
+        "@type": "City",
+        "name": "Greater Toronto Area"
+      },
+      "sameAs": [
+        "https://www.instagram.com/commercialbysina/"
+      ]
+    },
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://sinacommercial.ca/#agent",
+      "name": "Sina Commercial",
+      "description": "GTA commercial real estate advisory — industrial, retail, automotive, and investment opportunities across Toronto, Vaughan, Mississauga, Markham, and surrounding markets.",
+      "url": "https://sinacommercial.ca",
+      "areaServed": {
+        "@type": "City",
+        "name": "Greater Toronto Area"
+      },
+      "employee": {
+        "@type": "Person",
+        "name": "Sina Shahravan",
+        "jobTitle": "Vice President, Sales Associate",
+        "description": "15 years in commercial real estate, specialized in industrial and commercial purchase and lease across the GTA."
+      },
+      "knowsAbout": [
+        "Industrial Real Estate",
+        "Commercial Real Estate",
+        "Retail Properties",
+        "Automotive Properties",
+        "Investment Properties",
+        "Off-Market Deals",
+        "Market Intelligence"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sinacommercial.ca/#website",
+      "name": "Sina Commercial",
+      "url": "https://sinacommercial.ca",
+      "publisher": {
+        "@id": "https://sinacommercial.ca/#organization"
+      },
+      "inLanguage": "en-CA",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://sinacommercial.ca/search-properties?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
 }
     </script>
   </head>
