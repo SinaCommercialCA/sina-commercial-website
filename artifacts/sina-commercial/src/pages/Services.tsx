@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Users, Home, TrendingUp, Search, Building, Briefcase, Wrench, BarChart2, ArrowRight
 } from "lucide-react";
+import PageMeta from "@/components/PageMeta";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -149,11 +150,16 @@ const SERVICES = [
 
 export default function Services() {
   React.useEffect(() => {
-    document.title = "Commercial Real Estate Advisory Services GTA | Sina Commercial";
+    // PageMeta handles title/description via react-helmet-async
   }, []);
 
   return (
     <div className="w-full overflow-hidden">
+      <PageMeta
+        title="Commercial Real Estate Advisory Services — GTA | Sina Commercial"
+        description="Strategic commercial real estate advisory — tenant representation, buyer representation, investment advisory, off-market acquisitions, and specialized automotive commercial expertise across the GTA."
+        path="/services"
+      />
       {/* HERO */}
       <section className="pt-20 pb-20 bg-card border-b border-white/10 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />

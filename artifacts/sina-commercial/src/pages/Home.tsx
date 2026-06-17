@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Building2, TrendingUp, Search, ShieldCheck, MapPin, Briefcase, ChevronRight, ArrowRight, ExternalLink } from "lucide-react";
 import headshot from "@assets/photo_2026-06-05_01-52-08_1780720012134.jpg";
 import ListingRequestModal from "@/components/ListingRequestModal";
+import PageMeta from "@/components/PageMeta";
 
 import heroBg from "@/assets/hero-bg.png";
 import type { PublicListing, MarketIntelSection } from "@/lib/api-types";
@@ -60,6 +61,12 @@ export default function Home() {
 
   return (
     <div className="w-full overflow-hidden">
+      <PageMeta
+        title="Sina Commercial — GTA Commercial Real Estate | Industrial • Retail • Automotive • Investment"
+        description="Commercial real estate intelligence for the Greater Toronto Area. Industrial, retail, automotive, and investment properties. Off-market opportunities, market intelligence, and expert advisory by Sina Shahravan."
+        path="/"
+        ogTitle="Sina Commercial — GTA Commercial Real Estate Intelligence"
+      />
       {/* HERO SECTION */}
       <section className="relative min-h-[80vh] flex items-center py-20 sm:py-24">
         <div className="absolute inset-0 z-0">

@@ -7,6 +7,7 @@ import { MapPin, ArrowRight, Building2, Loader2 } from "lucide-react";
 import type { PublicListing } from "@/lib/api-types";
 import { imageUrlFor } from "@/lib/image-url";
 import ListingRequestModal from "@/components/ListingRequestModal";
+import PageMeta from "@/components/PageMeta";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -36,10 +37,6 @@ export default function Opportunities() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    document.title = "Commercial Real Estate Opportunities GTA | Sina Commercial";
-  }, []);
-
-  useEffect(() => {
     async function load() {
       setLoading(true);
       setError(false);
@@ -63,6 +60,11 @@ export default function Opportunities() {
 
   return (
     <div className="w-full overflow-hidden">
+      <PageMeta
+        title="Commercial Real Estate Opportunities — GTA | Sina Commercial"
+        description="Explore curated commercial real estate opportunities across the GTA — industrial, retail, investment, automotive, and off-market properties. Request details on available listings."
+        path="/opportunities"
+      />
       {/* HERO */}
       <section className="pt-20 pb-20 bg-card border-b border-white/10 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />

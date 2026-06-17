@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TrendingUp, MapPin, BarChart2, Lock, CheckCircle2, Loader2 } from "lucide-react";
 import type { MarketIntelSection, MarketIntelNotes } from "@/lib/api-types";
+import PageMeta from "@/components/PageMeta";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -150,10 +151,6 @@ export default function MarketIntelligence() {
   const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
-    document.title = "GTA Commercial Real Estate Market Intelligence | Sina Commercial";
-  }, []);
-
-  React.useEffect(() => {
     async function load() {
       try {
         const res = await fetch("/api/market-intelligence");
@@ -196,6 +193,11 @@ export default function MarketIntelligence() {
 
   return (
     <div className="w-full overflow-hidden">
+      <PageMeta
+        title="GTA Commercial Real Estate Market Intelligence — Trends & Data | Sina Commercial"
+        description="Market intelligence for GTA commercial real estate — industrial vacancy rates, investment corridors, rental trends, and broker insights for investors, landlords, tenants, and business owners."
+        path="/market-intelligence"
+      />
       {/* HERO */}
       <section className="pt-20 pb-20 bg-card border-b border-white/10 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />

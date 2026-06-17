@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Mail, MessageSquare, MapPin, CheckCircle2 } from "lucide-react";
+import PageMeta from "@/components/PageMeta";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -37,7 +38,7 @@ export default function Contact() {
   });
 
   React.useEffect(() => {
-    document.title = "Contact Sina Commercial | GTA Commercial Real Estate";
+    // PageMeta handles title/description via react-helmet-async
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,6 +67,11 @@ export default function Contact() {
 
   return (
     <div className="w-full overflow-hidden">
+      <PageMeta
+        title="Contact Sina Commercial — GTA Commercial Real Estate Advisory"
+        description="Contact Sina Shahravan for commercial real estate advisory in the GTA. Inquire about industrial, retail, investment, or automotive properties. Confidential consultations available."
+        path="/contact"
+      />
       {/* HERO */}
       <section className="pt-20 pb-20 bg-card border-b border-white/10 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/50 to-transparent" />

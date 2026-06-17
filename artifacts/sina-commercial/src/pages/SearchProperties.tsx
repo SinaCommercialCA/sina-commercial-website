@@ -9,6 +9,7 @@ import { CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Info, MapPin, B
 import type { ListingMatch } from "@/lib/api-types";
 import { imageUrlFor } from "@/lib/image-url";
 import ListingRequestModal from "@/components/ListingRequestModal";
+import PageMeta from "@/components/PageMeta";
 
 /* ─── helpers ──────────────────────────────────────────────────────────────── */
 function CB({
@@ -491,6 +492,11 @@ export default function SearchProperties() {
 
   return (
     <div className="w-full overflow-hidden">
+      <PageMeta
+        title="Search Commercial Properties — Industrial, Retail, Auto | Sina Commercial"
+        description="Search and request GTA commercial properties by use type, location, size, and budget. Industrial, warehouse, retail, automotive, and investment properties across Toronto and the GTA."
+        path="/search-properties"
+      />
       {/* HERO */}
       <section className="pt-16 pb-14 bg-card border-b border-white/10 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent" />
